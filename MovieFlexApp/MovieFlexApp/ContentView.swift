@@ -15,7 +15,7 @@ struct ContentView: View {
         Text("Hello, world!")
             .padding()
             .onAppear{
-                MovieApi.shared.discoverMovies().sink { (result) in
+                SearchApi.shared.multiSearch(query: "Tom hanks").sink { (result) in
                     switch result{
                     case .finished:
                         print("finished")
@@ -24,7 +24,7 @@ struct ContentView: View {
                     }
                 } receiveValue: { (data) in
                
-                   print( data.results?[0].posterURL.absoluteString)
+                    print( data.results)
                 }
                 .store(in: &cancells)
 

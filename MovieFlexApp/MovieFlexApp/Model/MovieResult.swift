@@ -24,17 +24,25 @@ struct Movie: Codable {
     let popularity: Double?
     let video: Bool?
     let posterPath: String?
+    let mediaType:MediaType?
     let id: Int?
+    let budget:Int?
     let backdropPath:String?
-    let  originalLanguage, title: String?
+    let originalLanguage, title: String?
     let voteAverage: Double?
     let overview:String?
     let releaseDate:String?
-    
+    let genreIDS:[Int]?
+    let revenue:Int?
+   
+ 
     
     
     enum CodingKeys: String, CodingKey {
         case popularity, video
+        case revenue,budget
+        case mediaType = "media_type"
+        case genreIDS = "genre_ids"
         case posterPath = "poster_path"
         case id
         case backdropPath = "backdrop_path"
@@ -44,6 +52,12 @@ struct Movie: Codable {
         case overview
         case releaseDate = "release_date"
     }
+    
+    enum MediaType: String, Codable {
+        case movie = "movie"
+        case tv = "tv"
+    }
+    
     
     
  
