@@ -20,7 +20,7 @@ struct MovieResult: Codable {
 }
 
 // MARK: - Result
-struct Movie: Codable {
+struct Movie: Codable,Identifiable {
     let popularity: Double?
     let video: Bool?
     let posterPath: String?
