@@ -17,9 +17,32 @@ class AllMoviesViewModel:ObservableObject{
     var isSearched = CurrentValueSubject<Bool,Never>(false)
     @Published var page = 1;
     
+    
+    func getPopularMovies(page:Int){
+        AllMovieApi.shared.getPopularMovies(page: page).sink { (completion) in
+            switch completion {
+            case .failure(let error):
+                self.isLoading.value = false
+                print(error.localizedDescription)
+                
+            case .finished:
+                self.isLoading.value = false
+                print("finshed")
+            }
+        } receiveValue: { (movies) in
+            self.isLoading.value = false
+            if self.movies.count > 20 {
+                self.loadMore.send(false)
+            }
+            self.movies.append(contentsOf: movies.results ?? [Movie]())
+        }
+        .store(in: &disposeBag)
+    }
+    
     func fetchDiscoverMovies(page:Int){
         AllMovieApi.shared.discoverMovies(page: page).sink { (completion) in
             switch completion {
+            
             case .failure(let error):
                 self.isLoading.value = false
                 print(error.localizedDescription)

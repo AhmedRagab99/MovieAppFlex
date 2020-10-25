@@ -15,12 +15,9 @@ struct PopularCard: View {
             VStack(alignment:.leading,spacing:8) {
                 KFImage(movie.posterURL)
                     .resizable()
-                    .aspectRatio(16/9, contentMode: .fit)
-                              .cornerRadius(8)
-                              .shadow(radius: 4)
-//                    .frame(maxWidth: width, maxHeight:height - 15)
-//                    .cornerRadius(30)
-//                    .shadow(color:Color.secondary,radius: 10,x: 8,y: 8 )
+                    .frame(width: 120, height: 200)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
                
                 
                 VStack {

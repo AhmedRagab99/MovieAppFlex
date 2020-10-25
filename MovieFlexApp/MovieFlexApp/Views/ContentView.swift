@@ -12,41 +12,64 @@ import Combine
 struct ContentView: View {
     @State private var cancells = Set<AnyCancellable>()
     @StateObject var  viewModel = AllMoviesViewModel()
+    @State  var selectorIndex = 0
+    @State  var numbers = ["One","Two","Three"]
     @State var index = "Home"
     @State var show = false
     let width = UIScreen.screens.first?.bounds.width ?? 0
     let height = UIScreen.screens.first?.bounds.height ?? 0
     var body: some View {
-        
-        
-        
         if viewModel.isLoading.value == true{
             ProgressView().frame(width: 200, height: 200, alignment: .center)
         }
+        NavigationView {
+            ScrollView{
+                
+                
+                PopularView(movies: viewModel.movies,width: 130,heigth: 275)
+                    .padding()
+                
+                
+                PopularView(movies: viewModel.movies,width: 130,heigth: 275)
+                    .padding()
+                
+                
+                PopularView(movies: viewModel.movies,width: 130,heigth: 275)
+                    .padding()
+                
+                
+                
+            }
+            .onAppear {
+                viewModel.fetchDiscoverMovies(page: 1)
+            }
+            .navigationBarTitle(viewModel.isLoading.value == false ? "MovieApp":"")
+            
+        }
+        
+    }
+}
+
+
 //        ForEach(viewModel.movies,id:\.id){ m in
 //
 //            PopularCard(movie:m)
 //
 //                .padding()
 //        }
-        
-        
-        ScrollView(){
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 200, maximum: height))],spacing:20){
-                ForEach(viewModel.movies,id:\.id){ m in
-                    
-                    PopularCard(movie:m)
-                        
-                        .padding()
-                }
-            }
-        }
-        .onAppear{viewModel.fetchDiscoverMovies(page: 3)}
-        
-    }
-}
 
-
+//
+//        ScrollView(){
+//            LazyVGrid(columns: [GridItem(.adaptive(minimum: 200, maximum: height))],spacing:20){
+//                ForEach(viewModel.movies,id:\.id){ m in
+//
+//                    PopularCard(movie:m)
+//
+//                        .padding()
+//                }
+//            }
+//        }
+//        .onAppear{viewModel.fetchDiscoverMovies(page: 3)}
 
 
 struct ContentView_Previews: PreviewProvider {
@@ -113,3 +136,22 @@ struct ContentView_Previews: PreviewProvider {
 //                .store(in: &cancells)
 //
 //            }
+
+
+
+struct SegmentControlView: View {
+    @Binding  var selectorIndex:Int
+    @Binding  var numbers :[String]
+    var body: some View {
+        VStack {
+            // 2
+            Picker("Numbers", selection: $selectorIndex) {
+                ForEach(0 ..< numbers.count) { index in
+                    Text(self.numbers[index]).tag(index)
+                }
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal)
+        }
+    }
+}
