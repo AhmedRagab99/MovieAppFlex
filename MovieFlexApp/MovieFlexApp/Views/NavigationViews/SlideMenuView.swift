@@ -2,7 +2,6 @@ import SwiftUI
 
 struct SlideMenuView: View {
     var body: some View {
-        
         Home()
     }
 }
@@ -229,7 +228,13 @@ struct Home : View {
                         
                         if self.index == 0{
                             
-                            MovieTabView()
+                            NavigationView {
+                                ContentView()
+                                    .padding(.vertical)
+                                    .navigationTitle("Movies")
+                                    .navigationBarTitleDisplayMode(.large)
+                            }
+                            
                             
                         }
                         else if self.index == 1{
@@ -264,6 +269,5 @@ struct Home : View {
     }
 }
 
-// Mainpage View...
 
 

@@ -11,7 +11,9 @@ struct PopularCard: View {
     let width = UIScreen.screens.first?.bounds.width ?? 0
     let height = UIScreen.screens.first?.bounds.height ?? 0
     var movie:Movie
+//    @State var showDetail:Bool
     var body: some View {
+        
             VStack(alignment:.leading,spacing:8) {
                 KFImage(movie.posterURL)
                     .resizable()
@@ -31,14 +33,9 @@ struct PopularCard: View {
                         Text(movie.voteAverage?.description ?? "")
                     }
                 }
-               
-                    
-                
-                
-         
             
         }
-            
+        
             
     }
     

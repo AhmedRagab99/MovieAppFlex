@@ -10,13 +10,12 @@ import KingfisherSwiftUI
 
 struct ShowMoreMoviesView: View {
      var movies:[Movie]
+    @State var movie:Movie?
     @ObservedObject var viewModel:AllMoviesViewModel
+    @State var show = false
+    @State var title:String
     @State var searchText:String = ""
     var body: some View {
-        
-        
-        
-        
         List(movies,id:\.id) { item in
             HStack{
                 KFImage(item.posterURL)
@@ -24,7 +23,7 @@ struct ShowMoreMoviesView: View {
                     .frame(width: 80, height: 80)
                     .clipShape(Rectangle())
                     .cornerRadius(20)
-                    .shadow(color:Color.primary,radius: 5)
+                    .shadow(radius: 2.5)
                     .padding()
                 
                 VStack(alignment:.leading) {
@@ -38,23 +37,38 @@ struct ShowMoreMoviesView: View {
                         Text(item.voteAverage?.description ?? "")
                     }
                 }
+                
             }
+            .onTapGesture{
+                withAnimation(.spring()){
+                self.show.toggle()
+                self.movie = item
+                }
+            }
+            
             .onAppear{
                 if item == movies.last{
                     print(viewModel.page)
                     viewModel.page = viewModel.page + 1
                     print(viewModel.page)
+                    if title == "Discover"{
                     viewModel.fetchDiscoverMovies(page: viewModel.page)
-                    
-                    
+                    } else if title == "Upcoming"{
+                        viewModel.fetchUpComeingMovies(page: viewModel.page)
+
+                    }
+                    else{
+                        viewModel.getTopRatedMovies(page: viewModel.page)
+
+                    }
                 }
             }
         }
+        .padding(.horizontal)
+        .fullScreenCover(isPresented: $show) {
+            
+            MovieDetailView(isFullScreen: $show, movie: self.movie ?? movies.first!)
+                .transition(.opacity)
+                }
     }
 }
-
-//struct ShowMoreMoviesView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ShowMoreMoviesView(movies: <#[Movie]#>)
-//    }
-//}

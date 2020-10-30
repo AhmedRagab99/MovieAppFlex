@@ -51,7 +51,7 @@ class AllMoviesViewModel:ObservableObject{
                 
             case .finished:
                 self.isLoading.value = false
-                print("finshed")
+                print(" top rated finshed")
             }
         } receiveValue: { (movies) in
             self.isLoading.value = false
@@ -76,7 +76,7 @@ class AllMoviesViewModel:ObservableObject{
                 
             case .finished:
                 self.isLoading.value = false
-                print("finshed")
+                print("discover finshed")
             }
         } receiveValue: { (movies) in
             self.isLoading.value = false
@@ -100,7 +100,7 @@ class AllMoviesViewModel:ObservableObject{
                 
             case .finished:
                 self.isLoading.value = false
-                print("finshed")
+                print(" upcomeing finshed")
             }
         } receiveValue: { (movies) in
             self.isLoading.value = false

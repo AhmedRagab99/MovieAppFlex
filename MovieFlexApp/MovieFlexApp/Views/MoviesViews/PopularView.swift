@@ -12,8 +12,12 @@ struct PopularView: View {
     var width:CGFloat
     @ObservedObject var viewModel:AllMoviesViewModel
     @State var title:String
+    @State var movie:Movie?
     @State private var showDiscover = false
     @State private var showTopRated = false
+    @State private var show = false
+  
+
     var heigth:CGFloat
     var body: some View {
  
@@ -32,7 +36,7 @@ struct PopularView: View {
                     else {self.showTopRated.toggle()}
                     
                 }) {
-                    NavigationLink(destination: ShowMoreMoviesView(movies: movies, viewModel: viewModel)) {
+                    NavigationLink(destination: ShowMoreMoviesView(movies: movies, viewModel: viewModel, title: "Discover")) {
                                       
                     Text("More...")
                         .font(.headline)
@@ -45,15 +49,32 @@ struct PopularView: View {
                     ForEach(movies,id:\.id){ m in
                         GeometryReader{ reader in
                             PopularCard(movie:m)
+                                .onTapGesture(perform: {
+                                    withAnimation{
+                                        self.show.toggle()
+                                        self.movie = m
+                                     //   self.selectedMovie = m
+                                    }
+                                    
+                                })
+                          
                                 .rotation3DEffect(
                                     Angle(degrees: Double(reader.frame(in: .global).minX - 30) / -20),
                                     axis: (x: 0, y: 10, z: 10)
                                 )
                                 .padding(.horizontal)
+                              
                             
                         }
                         .frame(width: width, height: heigth)
+                        
+                        .fullScreenCover(isPresented: $show) {
+                            
+                            MovieDetailView(isFullScreen: $show, movie: movie ?? movies.first!)
+                                .transition(.opacity)
+                                }
                     }
+                    
                 }
                 .padding(.top)
             }

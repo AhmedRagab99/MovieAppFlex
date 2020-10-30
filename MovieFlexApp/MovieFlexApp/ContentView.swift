@@ -23,27 +23,28 @@ struct ContentView: View {
        
             VStack {
                 ScrollView{
-                        // TabButtonView(viewmodel: viewModel)
-                        
-                        
                         
                     PopularView(movies: viewModel.discoverMovies, loading: viewModel.isLoading.value,width: 130, viewModel: viewModel, title: "Discover",heigth: 275)
                             .padding()
                             
-                        .onAppear{viewModel.fetchDiscoverMovies(page: viewModel.page)}
-                        
+            
                         
                     PopularView(movies: viewModel.movies, loading: viewModel.isLoading.value,width: 130, viewModel: viewModel, title: "TopRated",heigth: 275)
                             .padding()
-                            .onAppear{viewModel.getTopRatedMovies(page: viewModel.page)}
+                          
                         
                         
-                        SimpleCardView(movies: viewModel.upComingMovies,title:"Upcoming", loading: viewModel.isLoading.value)
+                    GridView(movies: viewModel.upComingMovies,title:"Upcoming", loading: viewModel.isLoading.value, viewModel: viewModel)
                             .padding()
-                            .onAppear{viewModel.fetchUpComeingMovies(page: viewModel.page)}
+                    
                         
               
             }
+                .onAppear{
+                    viewModel.fetchUpComeingMovies(page: viewModel.page == 1 ? viewModel.page : 1)
+                    viewModel.getTopRatedMovies(page: viewModel.page == 1 ? viewModel.page : 1)
+                    viewModel.fetchDiscoverMovies(page: viewModel.page == 1 ? viewModel.page : 1)
+                }
         }
             
             
