@@ -13,6 +13,7 @@ struct ShowMoreMoviesView: View {
     @State var movie:Movie?
     @ObservedObject var viewModel:AllMoviesViewModel
     @State var show = false
+   @State  var page:Int
     @State var title:String
     @State var searchText:String = ""
     var body: some View {
@@ -49,26 +50,32 @@ struct ShowMoreMoviesView: View {
             .onAppear{
                 if item == movies.last{
                     print(viewModel.page)
-                    viewModel.page = viewModel.page + 1
+                page = page + 1
                     print(viewModel.page)
                     if title == "Discover"{
-                    viewModel.fetchDiscoverMovies(page: viewModel.page)
+                    viewModel.fetchDiscoverMovies(page: page)
                     } else if title == "Upcoming"{
-                        viewModel.fetchUpComeingMovies(page: viewModel.page)
+                        viewModel.fetchUpComeingMovies(page: page)
 
                     }
                     else{
-                        viewModel.getTopRatedMovies(page: viewModel.page)
+                        viewModel.getTopRatedMovies(page: page)
 
                     }
                 }
             }
         }
         .padding(.horizontal)
-        .fullScreenCover(isPresented: $show) {
-            
-            MovieDetailView(isFullScreen: $show, movie: self.movie ?? movies.first!)
-                .transition(.opacity)
+        .sheet(isPresented: $show) {
+
+            MovieDetailView(isFullScreen: $show, movie: movie ?? movies.first!)
+                
                 }
+//        .fullScreenCover(isPresented: $show) {
+//
+////            MovieDetailView(isFullScreen: $show, movie: self.movie ?? movies.first!)
+//            Test(isFullScreen: $show, movie: movie ?? movies.first!)
+//                .transition(.opacity)
+//                }
     }
 }

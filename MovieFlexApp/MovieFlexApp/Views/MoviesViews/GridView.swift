@@ -31,7 +31,7 @@ struct GridView: View {
                     }
                     
                 }) {
-                    NavigationLink(destination: ShowMoreMoviesView(movies: movies, viewModel: viewModel, title: "Upcoming")) {
+                    NavigationLink(destination: ShowMoreMoviesView(movies: movies, viewModel: viewModel, page: 1, title: "Upcoming")) {
                                       
                     Text("More...")
                         .font(.headline)
@@ -49,7 +49,6 @@ struct GridView: View {
                             .onTapGesture{
                                 self.movie = item
                                 self.show.toggle()
-                              
                             }
                           
                     }
@@ -59,10 +58,10 @@ struct GridView: View {
                 
             }
         }
-        .fullScreenCover(isPresented: $show) {
-            
-            MovieDetailView(isFullScreen: $show, movie: self.movie ?? movies.first!)
-                .transition(.opacity)
+        .sheet(isPresented: $show) {
+
+            MovieDetailView(isFullScreen: $show, movie: movie ?? movies.first!)
+                
                 }
     }
 }

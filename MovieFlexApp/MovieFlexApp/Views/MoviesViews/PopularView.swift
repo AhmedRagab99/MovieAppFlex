@@ -36,7 +36,7 @@ struct PopularView: View {
                     else {self.showTopRated.toggle()}
                     
                 }) {
-                    NavigationLink(destination: ShowMoreMoviesView(movies: movies, viewModel: viewModel, title: "Discover")) {
+                    NavigationLink(destination: ShowMoreMoviesView(movies: movies, viewModel: viewModel, page: 1, title: "Discover")) {
                                       
                     Text("More...")
                         .font(.headline)
@@ -66,12 +66,13 @@ struct PopularView: View {
                               
                             
                         }
+                        
                         .frame(width: width, height: heigth)
                         
-                        .fullScreenCover(isPresented: $show) {
-                            
+                        .sheet(isPresented: $show) {
+
                             MovieDetailView(isFullScreen: $show, movie: movie ?? movies.first!)
-                                .transition(.opacity)
+                                
                                 }
                     }
                     
