@@ -69,10 +69,10 @@ struct PopularView: View {
                         
                         .frame(width: width, height: heigth)
                         
-                        .sheet(isPresented: $show) {
+                        .fullScreenCover(isPresented: $show) {
 
                             MovieDetailView(isFullScreen: $show, movie: movie ?? movies.first!)
-                                
+                                .animation(.easeOut(duration: 0.3))
                                 }
                     }
                     

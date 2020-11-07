@@ -13,6 +13,8 @@ import Combine
 class MovieViewModle:ObservableObject{
     var disposeBag = Set<AnyCancellable>()
     @Published var isLoading = CurrentValueSubject<Bool,Never>(true)
+    @Published var isError = CurrentValueSubject<Bool,Never>(false)
+    @Published var error = ""
     @Published var cast = [Cast]()
     @Published var similarMovies = [Movie]()
     
@@ -22,6 +24,9 @@ class MovieViewModle:ObservableObject{
             switch result{
             case .failure(let error):
                 print(error.localizedDescription)
+                self.isLoading.value = false
+                self.error = error.localizedDescription
+                self.isError.value = true
             case .finished:
                 print("finshed")
             }
@@ -37,6 +42,9 @@ class MovieViewModle:ObservableObject{
             switch result{
             case .failure(let error):
                 print(error.localizedDescription)
+                self.error = error.localizedDescription
+                self.isError.value = true
+                self.isLoading.value = false
             case .finished:
                 print("finshed")
             }

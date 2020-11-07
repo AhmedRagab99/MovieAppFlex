@@ -27,8 +27,16 @@ struct Work: Codable {
     let mediaType:String?
     let overview, releaseDate: String?
     
+    public var ratingText: String {
+        let rating = Int(voteAverage ?? 0)
+        let ratingText = (0..<rating).reduce("") { (acc, _) -> String in
+            return acc + "⭐️"
+        }
+        return ratingText
+    }
+    
     public var posterURL: URL {
-        return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath ?? " ")")!
+        return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath ?? " ")") ?? URL(string: "https://www.pexels.com/photo/person-holding-photo-of-single-tree-at-daytime-1252983/")!
     }
     
     public var backdropURL: URL {

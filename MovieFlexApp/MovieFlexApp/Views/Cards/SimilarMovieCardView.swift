@@ -32,8 +32,9 @@ struct SimilarMovieCardView: View {
                 
             }
         }
-        .sheet(isPresented: $isFullScreen, content: {
+        .fullScreenCover(isPresented: $isFullScreen, content: {
             MovieDetailView(isFullScreen: $isFullScreen, movie: item)
+                .animation(.easeOut(duration: 0.3))
         })
     }
 }

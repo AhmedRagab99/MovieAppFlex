@@ -14,24 +14,8 @@ struct MovieDetailView: View {
     @State var op:CGFloat = 1
     
     var body: some View {
+        NavigationView{
         VStack {
-            HStack {
-                Image(systemName: "clear.fill")
-                    .imageScale(.large)
-                    .padding()
-                    .onTapGesture {
-                        withAnimation(.spring()){
-                            self.isFullScreen.toggle()
-                            self.op = 0
-                        }
-                    }
-                Spacer()
-                Image(systemName: "heart.fill")
-                    .frame(width: 40, height:40, alignment: .leading)
-                
-            }
-            .padding()
-            
             List{
             
                 KFImage(movie.posterURL)
@@ -62,6 +46,18 @@ struct MovieDetailView: View {
                 MovieViewModel.getMovieCast(movieId: movie.id ?? 0)
                 MovieViewModel.getSimilarMovies(movieId: movie.id ?? 0)
             }
+        }
+        .navigationBarTitle("Movie Detail")
+        .navigationBarItems(leading:   Image(systemName: "clear.fill")
+                                .imageScale(.large)
+                                .padding()
+                                .onTapGesture {
+                                    withAnimation(.spring()){
+                                        self.isFullScreen.toggle()
+                                        self.op = 0
+                                    }
+                                }, trailing:                Image(systemName: "heart.fill"))
+            //                    .frame(width: 40, height:40, alignment: .leading))
         }
     }
 }
