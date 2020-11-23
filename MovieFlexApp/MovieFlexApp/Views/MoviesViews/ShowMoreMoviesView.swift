@@ -35,11 +35,19 @@ struct ShowMoreMoviesView: View {
                         Text(item.ratingText)
                             .font(.body)
                         
-                        Text(item.voteAverage?.description ?? "")
+                       
                     }
                 }
                 
+                ProgressCircleView(progressValue: Float(item.voteAverage ?? 0 * 10))
+                    .frame(width:80,height:80,alignment:.center)
+                    .padding()
+                    .background(Color(UIColor.systemBackground))
+                  
+      
+                
             }
+            .padding(.horizontal,4)
             .onTapGesture{
                 withAnimation(.spring()){
                 self.show.toggle()

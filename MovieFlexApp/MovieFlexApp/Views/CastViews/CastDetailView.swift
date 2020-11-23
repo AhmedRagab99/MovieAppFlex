@@ -115,7 +115,7 @@ struct CastDetailView: View {
             }
             .navigationBarItems(leading:   Image(systemName: "clear.fill")
                                     .imageScale(.large)
-                                    .foregroundColor(Color.pink)
+                                    .foregroundColor(Color.purple)
                                     .padding()
                                     .onTapGesture {
                                         withAnimation(.spring()){

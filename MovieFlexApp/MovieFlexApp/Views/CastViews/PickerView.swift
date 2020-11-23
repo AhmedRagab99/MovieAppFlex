@@ -21,7 +21,7 @@ struct PickerView: View {
         }.pickerStyle(SegmentedPickerStyle())
         .onAppear{
             
-               UISegmentedControl.appearance().selectedSegmentTintColor = .systemPink
+               UISegmentedControl.appearance().selectedSegmentTintColor = .systemPurple
                UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.label], for: .selected)
                UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.label], for: .normal)
         }

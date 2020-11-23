@@ -27,7 +27,7 @@ struct ActorHeaderView: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .opacity(isBlured ? 0:1)
-                       .foregroundColor(Color.pink)
+                       .foregroundColor(Color.purple)
                     Spacer().frame(width: 20, height: 20)
                 }, alignment: .center)
         

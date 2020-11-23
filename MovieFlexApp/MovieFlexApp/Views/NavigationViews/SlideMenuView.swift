@@ -30,8 +30,10 @@ struct Home : View {
                     
                     Image("test")
                         .resizable()
-                        .frame(width:60,height: 60)
-                        .cornerRadius(20)
+                        .frame(width:120,height: 120)
+                        .clipShape(Circle())
+                        .shadow(radius: 5 )
+                        
                     
                     Text("Hey")
                         .font(.title)
@@ -61,15 +63,15 @@ struct Home : View {
                         HStack(spacing: 25){
                             
                             Image(systemName: "heart.fill")
-                                .foregroundColor(self.index == 0 ? Color.pink.opacity(0.6) : Color.primary)
+                                .foregroundColor(self.index == 0 ? Color.purple.opacity(0.6) : Color.primary)
                             
                             
                             Text("Home")
-                                .foregroundColor(self.index == 0 ? Color.pink.opacity(0.6) : Color.primary)
+                                .foregroundColor(self.index == 0 ? Color.purple.opacity(0.6) : Color.primary)
                         }
                         .padding(.vertical, 10)
                         .padding(.horizontal)
-                        .background(self.index == 0 ? Color.pink.opacity(0.6) : Color.secondary.opacity(0.2))
+                        .background(self.index == 0 ? Color.purple.opacity(0.6) : Color.secondary.opacity(0.2))
                         .cornerRadius(10)
                     }
                     .padding(.top,25)
@@ -88,15 +90,15 @@ struct Home : View {
                         HStack(spacing: 25){
                             
                             Image(systemName: "heart.fill")
-                                .foregroundColor(self.index == 1 ? Color.pink.opacity(0.6): Color.primary)
+                                .foregroundColor(self.index == 1 ? Color.purple.opacity(0.6): Color.primary)
                             
                             
                             Text("Movies")
-                                .foregroundColor(self.index == 1 ? Color.pink.opacity(0.6) : Color.primary)
+                                .foregroundColor(self.index == 1 ? Color.purple.opacity(0.6) : Color.primary)
                         }
                         .padding(.vertical, 10)
                         .padding(.horizontal)
-                        .background(self.index == 1 ? Color.pink.opacity(0.6) : Color.secondary.opacity(0.2))
+                        .background(self.index == 1 ? Color.purple.opacity(0.6) : Color.secondary.opacity(0.2))
                         .cornerRadius(10)
                     }
                     
@@ -114,15 +116,15 @@ struct Home : View {
                         HStack(spacing: 25){
                             
                             Image(systemName: "heart.fill")
-                                .foregroundColor(self.index == 2 ? Color.pink.opacity(0.6) : Color.primary)
+                                .foregroundColor(self.index == 2 ? Color.purple.opacity(0.6) : Color.primary)
                             
                             
                             Text("Favourites")
-                                .foregroundColor(self.index == 2 ? Color.pink.opacity(0.6) : Color.primary)
+                                .foregroundColor(self.index == 2 ? Color.purple.opacity(0.6) : Color.primary)
                         }
                         .padding(.vertical, 10)
                         .padding(.horizontal)
-                        .background(self.index == 2 ? Color.pink.opacity(0.6) : Color.secondary.opacity(0.2))
+                        .background(self.index == 2 ? Color.purple.opacity(0.6) : Color.secondary.opacity(0.2))
                         .cornerRadius(10)
                     }
                     
@@ -140,15 +142,15 @@ struct Home : View {
                         HStack(spacing: 25){
                             
                             Image(systemName: "heart.fill")
-                                .foregroundColor(self.index == 3 ? Color.pink.opacity(0.6) : Color.primary)
+                                .foregroundColor(self.index == 3 ? Color.purple.opacity(0.6) : Color.primary)
                             
                             
                             Text("TVShows")
-                                .foregroundColor(self.index == 3 ? Color.pink.opacity(0.6) : Color.primary)
+                                .foregroundColor(self.index == 3 ? Color.purple.opacity(0.6) : Color.primary)
                         }
                         .padding(.vertical, 10)
                         .padding(.horizontal)
-                        .background(self.index == 3 ? Color.pink.opacity(0.6) : Color.secondary.opacity(0.2))
+                        .background(self.index == 3 ? Color.purple.opacity(0.6) : Color.secondary.opacity(0.2))
                         .cornerRadius(10)
                     }
                     
