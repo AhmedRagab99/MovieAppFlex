@@ -38,9 +38,10 @@ struct ShowMoreMoviesView: View {
                        
                     }
                 }
+                Spacer()
                 
                 ProgressCircleView(progressValue: Float(item.voteAverage ?? 0 * 10))
-                    .frame(width:80,height:80,alignment:.center)
+                    .frame(maxWidth:80,maxHeight:80,alignment:.trailing)
                     .padding()
                     .background(Color(UIColor.systemBackground))
                   
