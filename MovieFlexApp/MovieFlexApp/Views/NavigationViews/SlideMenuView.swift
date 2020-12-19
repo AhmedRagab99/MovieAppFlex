@@ -241,7 +241,7 @@ struct Home : View {
                         }
                         else if self.index == 1{
                             
-                            Text("ragab")
+                        LocationView()
                         }
                         else if self.index == 2{
                             
