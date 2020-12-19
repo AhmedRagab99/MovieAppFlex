@@ -19,6 +19,12 @@ struct MovieResult: Codable {
     }
 }
 
+
+struct Genre:Codable{
+    let id:Int
+    let name:String
+}
+
 // MARK: - Result
 struct Movie: Codable,Identifiable,Equatable,Hashable {
     let popularity: Double?

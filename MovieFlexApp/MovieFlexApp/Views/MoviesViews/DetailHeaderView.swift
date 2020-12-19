@@ -24,13 +24,15 @@ struct DetailHeaderView: View {
                 Text("popularity \(movie.popularity?.description ?? "")")
                     .font(.headline)
                     .foregroundColor(.secondary)
-                Spacer()
-                Text(movie.voteAverage?.description ?? "" )
-                    .font(.headline)
-                    .foregroundColor(.secondary)
+         Spacer()
+                ProgressCircleView(progressValue: Float(movie.voteAverage ?? 0 * 10))
+                    .frame(width:80,height:80,alignment:.center)
+                    .padding()
+                    .background(Color(UIColor.systemBackground))
+                  
             }
         }
-        .padding()
+       
     }
 }
 

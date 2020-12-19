@@ -9,7 +9,8 @@ import Foundation
 
 
 
-    struct ActorDetail: Codable {
+    struct ActorDetail: Codable,Identifiable {
+    
         let birthday, knownForDepartment: String?
         let id: Int?
         let name: String?
@@ -20,7 +21,7 @@ import Foundation
 
         
         public var ProfilePathUrl: URL {
-            return URL(string: "https://image.tmdb.org/t/p/w500\(profilePath ?? "")")!
+            return URL(string: "https://image.tmdb.org/t/p/w500\(profilePath ?? "")") ?? URL(string: "https://www.pexels.com/photo/person-holding-photo-of-single-tree-at-daytime-1252983/")!
         }
         
         enum CodingKeys: String, CodingKey {

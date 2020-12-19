@@ -9,22 +9,27 @@ import SwiftUI
 
 struct MovieDeatilCastView: View {
     var Cast:[Cast]
+    
     var body: some View {
-        VStack() {
-            
-            HStack {
-                Text("Cast")
-                    .font(.title)
-                Spacer()
-                Text("_______________")
+       
+            VStack() {
                 
+                HStack {
+                    Text("Cast")
+                        .font(.title)
+                    Spacer()
+                    Text("_______________")
+                    
+                }
+                .padding()
+                ScrollView(.horizontal,showsIndicators:false){
+              
+                    CastCardView(cast: Cast)
+                      
+                       
+                }
             }
-            .padding()
-            ScrollView(.horizontal,showsIndicators:false){
-                
-                CastCardView(cast: Cast)
-            }
-        }
         
-    }
+        }
+    
 }

@@ -41,26 +41,29 @@ struct GridView: View {
             ScrollView(.vertical,showsIndicators:false) {
                 
                 
-                LazyVGrid(columns:[GridItem(.adaptive(minimum: 130),spacing: 8)],spacing:12){
-                    
-                    ForEach(movies,id:\.id) { item in
+                VStack {
+                    LazyVGrid(columns:[GridItem(.adaptive(minimum: 130),spacing: 8)],spacing:12){
                         
-                        GridCardView(item: item)
-                            .onTapGesture{
-                                self.movie = item
-                                self.show.toggle()
-                            }
-                          
+                        ForEach(movies,id:\.id) { item in
+                            
+                            GridCardView(item: item)
+                                .onTapGesture{
+                                    self.movie = item
+                                    self.show.toggle()
+                                }
+                              
+                        }
+                        .padding()
+                        .frame(maxWidth:.infinity,maxHeight: 500)
                     }
-                    .padding()
-                    .frame(maxWidth:.infinity,maxHeight: 500)
                 }
                 
             }
         }
-        .sheet(isPresented: $show) {
+        .fullScreenCover(isPresented: $show) {
 
             MovieDetailView(isFullScreen: $show, movie: movie ?? movies.first!)
+                .animation(.easeOut(duration: 0.3))
                 
                 }
     }
