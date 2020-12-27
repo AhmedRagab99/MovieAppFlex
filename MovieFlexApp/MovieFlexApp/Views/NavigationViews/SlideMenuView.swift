@@ -213,7 +213,7 @@ struct Home : View {
                     
                     // Changing Name Based On Index...
                     
-                    Text(self.index == 0 ? "Home" : (self.index == 1 ? "Movies" : (self.index == 2 ? "TVShows" : "Map")))
+                    Text(self.index == 0 ? "Home" : (self.index == 1 ? "Maps" : (self.index == 2 ? "TVShows" : "Chat")))
                         .font(.title)
                         .foregroundColor(Color.primary.opacity(0.6))
                     

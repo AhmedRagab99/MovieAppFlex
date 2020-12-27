@@ -7,84 +7,61 @@
 
 import SwiftUI
 import MapKit
+import Combine
 
-struct MapViewContainer:UIViewRepresentable {
-    typealias UIViewType = MKMapView
-    let mapView = MKMapView()
-    var annotaions:[MKPointAnnotation]
-    
-    func makeUIView(context: Context) -> MKMapView {
-        setupRegionForMap()
-        return mapView
-    }
-    
-    fileprivate func setupRegionForMap(){
-        let centerCoordinate = CLLocationCoordinate2D(latitude: 37.7666, longitude: -122.427290)
-        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-        let region = MKCoordinateRegion(center: centerCoordinate, span: span)
-        mapView.setRegion(region, animated: true)
-    }
-    
-    func updateUIView(_ uiView: MKMapView, context: Context) {
-//        if let annotaion = annotaion{
-//            uiView.addAnnotation(annotaion)
-//        }
-        uiView.addAnnotations(annotaions)
-        uiView.showAnnotations(uiView.annotations, animated: false)
-    }
-}
+
+
 
 struct MapSearchView: View {
+    @StateObject var mapSearchViewModel = MapSearchViewModel()
     @State var dummyAnnotaions:MKPointAnnotation?
-    @State var annotaions  = [ MKPointAnnotation]()
+    @State var searchtext  = ""
     var body: some View {
         ZStack(alignment:.top){
-            MapViewContainer(annotaions: annotaions)
-                .padding(.horizontal)
-                .edgesIgnoringSafeArea(.bottom)
+            MapViewContainer(annotaions: mapSearchViewModel.annotaions,selectedMapItem: mapSearchViewModel.selectedMapItem,currentLocation: mapSearchViewModel.currentLocation)
+               
+                .edgesIgnoringSafeArea(.all)
             
-          
-            HStack{
-                Button(action:{
-//                    let annotaion = MKPointAnnotation()
-//                    annotaion.title = "SAN FRAN"
-//                    annotaion.coordinate = CLLocationCoordinate2D(latitude: 37.7666, longitude: -122.427290)
-//                    self.dummyAnnotaions = annotaion
+            VStack{
+                HStack{
+                    TextField("Search  for a place ",text:$mapSearchViewModel.searchingQuearyText,onCommit:{UIApplication.shared.windows.first?.window?.endEditing(true)})
+                        .padding(.horizontal,16)
+                        .padding(.vertical,10)
+                        .background(Color.white)
+                        .cornerRadius(15)
+                        
                     
-                    let request = MKLocalSearch.Request()
-                    request.naturalLanguageQuery = "AirPorts"
-                    let localSearch  = MKLocalSearch(request: request)
-                   
                     
-                    localSearch.start { (resp, error) in
-                        var airportsAnnotaions = [MKPointAnnotation]()
-                        resp?.mapItems.forEach({mapItem in
-                            print(mapItem.name ?? "")
-                            let annotaion = MKPointAnnotation()
-                            annotaion.title = mapItem.name
-                            annotaion.coordinate = mapItem.placemark.coordinate
-                            airportsAnnotaions.append(annotaion)
-                        })
-                        self.annotaions = airportsAnnotaions
+                }
+                .padding()
+                .shadow(radius: 5)
+                if mapSearchViewModel.isSearching{
+                    ProgressView()
+                }
+                Spacer()
+                ScrollView(.horizontal,showsIndicators:true){
+                    HStack(spacing:16){
+                        ForEach(mapSearchViewModel.mapItems,id:\.self){item in
+                            Button(action:{self.mapSearchViewModel.selectedMapItem = item }){
+                                VStack(alignment: .leading, spacing: 4){
+                                    Text(item.name ?? "")
+                                        .font(.headline)
+                                    Text(item.placemark.title ?? "")
+                                }
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .foregroundColor(Color.black)
+                            .padding()
+                            .frame(width:200)
+                            .background(Color.white)
+                            .cornerRadius(5)
+                        }
                     }
-                }){
-                    Text("Search for AirPorts")
-                        .padding()
-                        .background(Color.white)
                 }
-                .cornerRadius(10)
-                Button(action:{}){
-                    Text("Clear Annotations")
-                        .padding()
-                        .background(Color.white)
-                }
-                .cornerRadius(10)
-              
-                
+                .padding(.horizontal,16)
+                .padding(.vertical)
             }
-            .padding()
-            .shadow(radius: 5)
-            
+          
             
             
         }
@@ -96,3 +73,4 @@ struct MapSearchView_Previews: PreviewProvider {
         MapSearchView()
     }
 }
+
