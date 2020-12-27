@@ -44,9 +44,6 @@ struct ShowMoreMoviesView: View {
                     .frame(maxWidth:80,maxHeight:80,alignment:.trailing)
                     .padding()
                     .background(Color(UIColor.systemBackground))
-                  
-      
-                
             }
             .padding(.horizontal,4)
             .onTapGesture{

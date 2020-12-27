@@ -241,7 +241,7 @@ struct Home : View {
                         }
                         else if self.index == 1{
                             
-                        LocationView()
+                            MapSearchView()
                         }
                         else if self.index == 2{
                             

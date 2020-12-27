@@ -78,7 +78,6 @@ class MovieViewModle:ObservableObject{
             self.similarMovies = movies.results ?? [Movie]()
         }
         .store(in: &disposeBag)
-
     }
     
 }
