@@ -21,13 +21,12 @@ class MapSearchViewModel:NSObject,ObservableObject{
     private var disposeBag = Set<AnyCancellable>()
     
     
-    
     let locationManger = CLLocationManager()
     override init() {
         super.init()
         locationManger.delegate = self
         locationManger.requestWhenInUseAuthorization()
-        debounceSearchQuearyText()
+//        debounceSearchQuearyText()
         NotificationCenter.default.addObserver(forName: MapViewContainer.Coordinator.regionChangedNotification, object: nil, queue: .main) { [weak self](notification) in
             self?.region = notification.object as? MKCoordinateRegion
         }
@@ -40,6 +39,8 @@ class MapSearchViewModel:NSObject,ObservableObject{
             }
             .store(in: &disposeBag)
     }
+    
+    
     func performLocalSearch(queary:String = "AirPorts"){
         self.isSearching = true
         let request = MKLocalSearch.Request()

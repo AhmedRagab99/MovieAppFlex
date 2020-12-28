@@ -62,16 +62,16 @@ struct Home : View {
                         
                         HStack(spacing: 25){
                             
-                            Image(systemName: "heart.fill")
-                                .foregroundColor(self.index == 0 ? Color.purple.opacity(0.6) : Color.primary)
+                            Image(systemName: "house.fill")
+                                .foregroundColor(self.index == 0 ? Color.blue.opacity(0.6) : Color.primary)
                             
                             
                             Text("Home")
-                                .foregroundColor(self.index == 0 ? Color.purple.opacity(0.6) : Color.primary)
+                                .foregroundColor(self.index == 0 ? Color.blue.opacity(0.6) : Color.primary)
                         }
                         .padding(.vertical, 10)
                         .padding(.horizontal)
-                        .background(self.index == 0 ? Color.purple.opacity(0.6) : Color.secondary.opacity(0.2))
+                        .background(self.index == 0 ? Color.blue.opacity(0.6) : Color.secondary.opacity(0.2))
                         .cornerRadius(10)
                     }
                     .padding(.top,25)
@@ -89,16 +89,16 @@ struct Home : View {
                         
                         HStack(spacing: 25){
                             
-                            Image(systemName: "heart.fill")
-                                .foregroundColor(self.index == 1 ? Color.purple.opacity(0.6): Color.primary)
+                            Image(systemName: "map.fill")
+                                .foregroundColor(self.index == 1 ? Color.blue.opacity(0.6): Color.primary)
                             
                             
-                            Text("Movies")
-                                .foregroundColor(self.index == 1 ? Color.purple.opacity(0.6) : Color.primary)
+                            Text("Map")
+                                .foregroundColor(self.index == 1 ? Color.blue.opacity(0.6) : Color.primary)
                         }
                         .padding(.vertical, 10)
                         .padding(.horizontal)
-                        .background(self.index == 1 ? Color.purple.opacity(0.6) : Color.secondary.opacity(0.2))
+                        .background(self.index == 1 ? Color.blue.opacity(0.6) : Color.secondary.opacity(0.2))
                         .cornerRadius(10)
                     }
                     
@@ -115,16 +115,16 @@ struct Home : View {
                         
                         HStack(spacing: 25){
                             
-                            Image(systemName: "heart.fill")
-                                .foregroundColor(self.index == 2 ? Color.purple.opacity(0.6) : Color.primary)
+                            Image(systemName: "magnifyingglass.circle.fill")
+                                .foregroundColor(self.index == 2 ? Color.blue.opacity(0.6) : Color.primary)
                             
                             
-                            Text("Favourites")
-                                .foregroundColor(self.index == 2 ? Color.purple.opacity(0.6) : Color.primary)
+                            Text("Search")
+                                .foregroundColor(self.index == 2 ? Color.blue.opacity(0.6) : Color.primary)
                         }
                         .padding(.vertical, 10)
                         .padding(.horizontal)
-                        .background(self.index == 2 ? Color.purple.opacity(0.6) : Color.secondary.opacity(0.2))
+                        .background(self.index == 2 ? Color.blue.opacity(0.6) : Color.secondary.opacity(0.2))
                         .cornerRadius(10)
                     }
                     
@@ -142,15 +142,15 @@ struct Home : View {
                         HStack(spacing: 25){
                             
                             Image(systemName: "heart.fill")
-                                .foregroundColor(self.index == 3 ? Color.purple.opacity(0.6) : Color.primary)
+                                .foregroundColor(self.index == 3 ? Color.blue.opacity(0.6) : Color.primary)
                             
                             
-                            Text("TVShows")
-                                .foregroundColor(self.index == 3 ? Color.purple.opacity(0.6) : Color.primary)
+                            Text("Favorites")
+                                .foregroundColor(self.index == 3 ? Color.blue.opacity(0.6) : Color.primary)
                         }
                         .padding(.vertical, 10)
                         .padding(.horizontal)
-                        .background(self.index == 3 ? Color.purple.opacity(0.6) : Color.secondary.opacity(0.2))
+                        .background(self.index == 3 ? Color.blue.opacity(0.6) : Color.secondary.opacity(0.2))
                         .cornerRadius(10)
                     }
                     
@@ -166,7 +166,7 @@ struct Home : View {
                         
                         HStack(spacing: 25){
                             
-                            Image(systemName: "heart.fill")
+                            Image(systemName: "clear.fill")
                              
                             
                             
@@ -242,13 +242,14 @@ struct Home : View {
                         else if self.index == 1{
                             
                             MapSearchView()
+                                .environmentObject(DirectioinsEnviroment())
                         }
                         else if self.index == 2{
                             
                             Text("ahmed ")
                         }
                         else{
-                            
+   
                             Text("mohamed")
                         }
                     }
@@ -261,9 +262,6 @@ struct Home : View {
             .scaleEffect(self.show ? 0.8 : 1)
             
             .offset(x: self.show ? UIScreen.main.bounds.width / 2 : 0, y: self.show ? 15 : 0)
-            // Rotating Slighlty...
-            .rotationEffect(.init(degrees: self.show ? -5 : 0))
-            
         }
         .background(Color(UIColor.systemBackground)).edgesIgnoringSafeArea(.all)
         .edgesIgnoringSafeArea(.all)
