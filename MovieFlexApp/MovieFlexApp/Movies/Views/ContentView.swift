@@ -46,12 +46,6 @@ struct ContentView: View {
                     viewModel.fetchDiscoverMovies(page: viewModel.page == 1 ? viewModel.page : 1)
                 }
         }
-            
-            
-            
-            
-            
-       
         }
     }
 
