@@ -11,16 +11,15 @@ struct PopularCard: View {
     let width = UIScreen.screens.first?.bounds.width ?? 0
     let height = UIScreen.screens.first?.bounds.height ?? 0
     var movie:Movie
+//    @State var showDetail:Bool
     var body: some View {
+        
             VStack(alignment:.leading,spacing:8) {
                 KFImage(movie.posterURL)
                     .resizable()
-                    .aspectRatio(16/9, contentMode: .fit)
-                              .cornerRadius(8)
-                              .shadow(radius: 4)
-//                    .frame(maxWidth: width, maxHeight:height - 15)
-//                    .cornerRadius(30)
-//                    .shadow(color:Color.secondary,radius: 10,x: 8,y: 8 )
+                    .frame(width: 120, height: 200)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
                
                 
                 VStack {
@@ -34,14 +33,9 @@ struct PopularCard: View {
                         Text(movie.voteAverage?.description ?? "")
                     }
                 }
-               
-                    
-                
-                
-         
             
         }
-            
+        
             
     }
     

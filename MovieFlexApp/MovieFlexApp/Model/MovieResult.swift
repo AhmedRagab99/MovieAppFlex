@@ -19,8 +19,14 @@ struct MovieResult: Codable {
     }
 }
 
+
+struct Genre:Codable{
+    let id:Int
+    let name:String
+}
+
 // MARK: - Result
-struct Movie: Codable,Identifiable {
+struct Movie: Codable,Identifiable,Equatable,Hashable {
     let popularity: Double?
     let video: Bool?
     let posterPath: String?
@@ -69,7 +75,7 @@ struct Movie: Codable,Identifiable {
         }()
         
         public var posterURL: URL {
-            return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath ?? " ")")!
+            return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath ?? " ")") ??  URL(string: "https://www.pexels.com/photo/person-holding-photo-of-single-tree-at-daytime-1252983/")!
         }
         
         public var backdropURL: URL {
