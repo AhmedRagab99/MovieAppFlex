@@ -18,33 +18,7 @@ struct ShowMoreMoviesView: View {
     @State var searchText:String = ""
     var body: some View {
         List(movies,id:\.id) { item in
-            HStack{
-                KFImage(item.posterURL)
-                    .resizable()
-                    .frame(width: 80, height: 80)
-                    .clipShape(Rectangle())
-                    .cornerRadius(20)
-                    .shadow(radius: 2.5)
-                    .padding()
-                
-                VStack(alignment:.leading) {
-                    Text(item.title ?? "")
-                        .font(.headline)
-                    HStack(spacing:6) {
-                        
-                        Text(item.ratingText)
-                            .font(.body)
-                        
-                       
-                    }
-                }
-                Spacer()
-                
-                ProgressCircleView(progressValue: Float(item.voteAverage ?? 0 * 10))
-                    .frame(maxWidth:80,maxHeight:80,alignment:.trailing)
-                    .padding()
-                    .background(Color(UIColor.systemBackground))
-            }
+            ShowMoreCellView(movie: item)
             .padding(.horizontal,4)
             .onTapGesture{
                 withAnimation(.spring()){
