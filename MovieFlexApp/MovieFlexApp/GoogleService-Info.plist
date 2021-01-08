@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>277114349650-0qicq282s6h4od9vgmarj24s6ht99uvb.apps.googleusercontent.com</string>
+	<string>60593151706-5ul3ccg96bjs800n1f79f0k3dh0kbkkj.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.277114349650-0qicq282s6h4od9vgmarj24s6ht99uvb</string>
+	<string>com.googleusercontent.apps.60593151706-5ul3ccg96bjs800n1f79f0k3dh0kbkkj</string>
 	<key>API_KEY</key>
-	<string>AIzaSyACpgYk5rzsL40t4D-xu5VFeGSwRqiFe4k</string>
+	<string>AIzaSyBKzk6DwGXc-NjMrB5fRCd3F0fY6IqOb8A</string>
 	<key>GCM_SENDER_ID</key>
-	<string>277114349650</string>
+	<string>60593151706</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.ahmedRagab.MovieFlexApp</string>
 	<key>PROJECT_ID</key>
-	<string>movieflex-e3737</string>
+	<string>movieappflex</string>
 	<key>STORAGE_BUCKET</key>
-	<string>movieflex-e3737.appspot.com</string>
+	<string>movieappflex.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:277114349650:ios:bca0c691b913b30752d78b</string>
+	<string>1:60593151706:ios:7b9ce02c3224d574b4cfe3</string>
 </dict>
 </plist>
