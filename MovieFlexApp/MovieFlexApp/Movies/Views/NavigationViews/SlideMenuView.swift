@@ -1,5 +1,5 @@
 import SwiftUI
-
+import FirebaseAuth
 struct SlideMenuView: View {
     var body: some View {
         Home()
@@ -14,7 +14,7 @@ struct TestMenuView_preview: PreviewProvider {
 }
 
 struct Home : View {
-    
+    @State var viewModel = UserViewModel(mode: .signOut)
     @State var index = 0
     @State var show = false
     
@@ -172,7 +172,11 @@ struct Home : View {
                             
                             Text("Sign Out")
                                 .foregroundColor(Color.primary)
+                                .onTapGesture {
+                                    viewModel.tappedActionMode()
+                                }
                         }
+                        
                         .foregroundColor(Color.secondary.opacity(0.2))
                         .padding(.vertical, 10)
                         .padding(.horizontal)
@@ -246,7 +250,7 @@ struct Home : View {
                         }
                         else if self.index == 2{
                             
-                            Text("ahmed ")
+                         SignInView()
                         }
                         else{
    
