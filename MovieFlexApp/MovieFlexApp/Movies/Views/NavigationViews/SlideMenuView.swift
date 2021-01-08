@@ -250,7 +250,7 @@ struct Home : View {
                         }
                         else if self.index == 2{
                             
-                         SignInView()
+//                         SignInView()
                         }
                         else{
    

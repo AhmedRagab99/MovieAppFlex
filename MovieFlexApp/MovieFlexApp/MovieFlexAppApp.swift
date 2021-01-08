@@ -16,12 +16,11 @@ struct MovieFlexAppApp: App {
     @State var isLogIn = false
     var body: some Scene {
         WindowGroup {
-            
             if appAuthState.isLoggedIn{
                 SlideMenuView()
             } else {
                 SignInView()
-                
+
             }
         }
         

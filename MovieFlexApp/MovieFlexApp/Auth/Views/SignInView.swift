@@ -2,87 +2,140 @@
 //  SignInView.swift
 //  MovieFlexApp
 //
-//  Created by Ahmed Ragab on 08/01/2021.
+//  Created by Ahmed Ragab on 07/01/2021.
 //
 
 import SwiftUI
 import Combine
 import FirebaseAuth
 
+
 struct SignInView: View {
-    @StateObject var viewModel = UserViewModel(mode: .linkAnonmasyley)
+    @StateObject var viewModel = UserViewModel(mode: .signIn)
     @State var cancel = Set<AnyCancellable>()
-    
+    @State var color = Color.blue.opacity(0.7)
+    @State var visible = false
+    @State var revisible = false
+    @State var show:Bool = false
     var body: some View {
-        VStack {
+        NavigationView{
             
+            GeometryReader{ reader in
             
-            
-            HStack {
-                Image(systemName: "person.crop.circle.fill")
-                    .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
-                    .frame(width: 44, height: 44)
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .shadow(color: Color.black.opacity(0.15), radius: 5, x: 0, y: 5)
-                    .padding(.leading)
-                
-                TextField("Your Email".uppercased(), text: $viewModel.emailText)
-                    .keyboardType(.emailAddress)
-                    .font(.subheadline)
-                    //                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.leading)
-                    .frame(height: 44)
-                    .onTapGesture {
+                VStack(alignment:.center,spacing:16) {
+                    
+                    Image("auth")
+                        .resizable()
+                        .frame(width: reader.size.width * 0.7, height: reader.size.height * 0.4)
+                    
+                    
+                    
+                    HStack(spacing:15){
+                        
+                        VStack(){
+                            
+                            TextField("Your Email".uppercased(), text: $viewModel.emailText)
+                                .keyboardType(.emailAddress)
+                            
+                        }
+                        Image(systemName: "person.crop.circle.fill")
+                            .foregroundColor(self.color)
+                    }
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 5).stroke(self.color,lineWidth: 3))
+                    .padding()
+                    
+                    
+                    
+                    
+                    
+                    HStack(spacing: 15){
+                        VStack{
+                            
+                            if self.visible{
+                                
+                                TextField("Password", text: $viewModel.passwordText)
+                                    .autocapitalization(.none)
+                            }
+                            else{
+                                
+                                SecureField("Password", text: $viewModel.passwordText)
+                                    .autocapitalization(.none)
+                            }
+                        }
+                        
+                        Button(action: {
+                            
+                            self.visible.toggle()
+                            
+                        }) {
+                            
+                            Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
+                                .foregroundColor(self.color)
+                        }
                         
                     }
-            }
-            
-            HStack {
-                Image(systemName: "lock.fill")
-                    .foregroundColor(Color(#colorLiteral(red: 0.6549019608, green: 0.7137254902, blue: 0.862745098, alpha: 1)))
-                    .frame(width: 44, height: 44)
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .shadow(color: Color.black.opacity(0.15), radius: 5, x: 0, y: 5)
-                    .padding(.leading)
-                
-                SecureField("Password".uppercased(), text: $viewModel.passwordText)
-                    .keyboardType(.default)
-                    .font(.subheadline)
+                    .padding()
                     
-                    .padding(.leading)
-                    .frame(height: 44)
-                
-            }
-            
-            
-            Button(action:{
-                viewModel.getCurrentUserId()
-                    .sink { (_) in
-                        print("asdasd")
-                    } receiveValue: { (val) in
-                        print(val)
+                    .background(RoundedRectangle(cornerRadius: 5).stroke(self.color,lineWidth: 3))
+                    .padding()
+                    
+                    
+                    Button(action: {
+                        viewModel.tappedActionMode()
+                    }) {
+                        Text("Sign In")
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                            .frame(width: 200,height: 50)
+                            .background(self.color)
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .shadow(radius: 5)
+                        
                     }
-                    .store(in: &cancel)
-
-            }){
-                Text("SignIn Anon")
-            }
+                    .disabled(!viewModel.isVallidLogIn)
+                    .opacity(viewModel.isVallidLogIn ? 1 : 0.4)
+                    
+                    VStack(alignment:.center){
+                        HStack(spacing:2){
+                            Spacer()
+                            Text("do not have an acount?")
+                            Button(action: {
+                           
+                                self.show.toggle()
+                            } ){
+                                
+                                NavigationLink(destination: SignUpView(), isActive: $show){}
+                                Text("Sign Up")
+                                    .font(.headline)
+                                    .foregroundColor(Color.blue.opacity(0.9))
+                                    .padding()
+                            }
+                            Spacer()
+                        }
+                    }
+                    Spacer()
+                    
+                    
+                }
+                .padding()
             
-            Button(action:{
-               viewModel.tappedActionMode()
-            }){
-                Text("SignIn here")
+                .navigationTitle("Welcome back!")
+                
+               
+               
             }
         }
-        
-        
+   
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text("ERROR"), message: Text(viewModel.errorText), dismissButton: .default(Text("OK!")))
+            
+        }
     }
 }
-
-struct SignUpView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignInView()
-    }
-}
+//
+//struct SignInView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SignUpView( )
+//    }
+//}
