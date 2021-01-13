@@ -14,26 +14,33 @@ struct PopularCard: View {
 //    @State var showDetail:Bool
     var body: some View {
         
+        GeometryReader {reader in
             VStack(alignment:.leading,spacing:8) {
-                KFImage(movie.posterURL)
-                    .resizable()
-                    .frame(width: 120, height: 200)
-                    .cornerRadius(10)
-                    .shadow(radius: 5)
-               
-                
-                VStack {
-                    Text(movie.title ?? "")
-                        .font(.headline)
-                    HStack(spacing:6) {
-                        
-                        Text(movie.ratingText)
-                            .font(.subheadline)
+                    KFImage(movie.posterURL)
+                        .resizable()
+                        .frame(width: 120)
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
+                   
+                    
+                    VStack(spacing:2) {
                        
-                        Text(movie.voteAverage?.description ?? "")
+                        VStack {
+                            Text(movie.title ?? "")
+                                    .font(.subheadline)
+                                    .bold()
+                                .multilineTextAlignment(.leading)
+                        }
+                        
+                            Text(movie.ratingText)
+                                .font(.system(size: 12))
+                        
                     }
-                }
-            
+                 
+                    
+                
+            }
+          
         }
         
             

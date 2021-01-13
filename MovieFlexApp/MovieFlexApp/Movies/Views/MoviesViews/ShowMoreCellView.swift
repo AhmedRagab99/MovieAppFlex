@@ -12,6 +12,7 @@ import KingfisherSwiftUI
 
 struct ShowMoreCellView:View{
     var movie:Movie
+    @Binding var show :Bool
     var body :some View{
         HStack{
             KFImage(movie.posterURL)
@@ -40,6 +41,18 @@ struct ShowMoreCellView:View{
                 .padding()
                 .background(Color(UIColor.systemBackground))
         }
+        .onTapGesture{
+            withAnimation(.spring()){
+            self.show.toggle()
+            }
+         
+        }
+        .fullScreenCover(isPresented: $show) {
+
+            MovieDetailView(isFullScreen: $show, movie: movie )
+                .animation(.easeOut(duration: 0.3))
+                
+    }
     }
 }
 

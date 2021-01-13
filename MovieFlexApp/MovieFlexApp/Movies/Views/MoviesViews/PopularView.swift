@@ -21,6 +21,7 @@ struct PopularView: View {
     var heigth:CGFloat
     var body: some View {
  
+        
         VStack {
     
             if loading{
@@ -79,7 +80,7 @@ struct PopularView: View {
                 }
                 .padding(.top)
             }
-            .listRowInsets(.init(top: 50, leading: 0, bottom: 0, trailing: 0))
+//            .listRowInsets(.init(top: 50, leading: 0, bottom: 0, trailing: 0))
         }
           
     }

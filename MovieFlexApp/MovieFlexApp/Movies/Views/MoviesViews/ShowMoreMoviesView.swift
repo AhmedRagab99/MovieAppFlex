@@ -10,53 +10,30 @@ import KingfisherSwiftUI
 
 struct ShowMoreMoviesView: View {
      var movies:[Movie]
-    @State var movie:Movie?
+    
     @ObservedObject var viewModel:AllMoviesViewModel
     @State var show = false
-   @State  var page:Int
+    @State  var page:Int
     @State var title:String
-    @State var searchText:String = ""
+    @State var index = 0
+  
     var body: some View {
-        List(movies,id:\.id) { item in
-            ShowMoreCellView(movie: item)
-            .padding(.horizontal,4)
-            .onTapGesture{
-                withAnimation(.spring()){
-                self.show.toggle()
-                self.movie = item
-                }
-            }
-            
-            .onAppear{
-                if item == movies.last{
-                    print(viewModel.page)
-                page = page + 1
-                    print(viewModel.page)
-                    if title == "Discover"{
-                    viewModel.fetchDiscoverMovies(page: page)
-                    } else if title == "Upcoming"{
-                        viewModel.fetchUpComeingMovies(page: page)
+        VStack {
+            ScrollView{
+                SearchBarView(placeholder: "Search for a movie ", text: $viewModel.seearchText)
+                    .padding(.horizontal)
+                ForEach(viewModel.filterdMovies.count != 0 ? viewModel.filterdMovies:movies,id:\.id) { item in
+                ShowMoreCellView(movie: item,show: $show)
+                    
+                .padding(.horizontal,4)
 
-                    }
-                    else{
-                        viewModel.getTopRatedMovies(page: page)
-
-                    }
-                }
+               
             }
+          
+            }
+            .padding([.bottom,.horizontal])
+            Spacer()
+    
         }
-        .padding(.horizontal)
-        .fullScreenCover(isPresented: $show) {
-
-            MovieDetailView(isFullScreen: $show, movie: movie ?? movies.first!)
-                .animation(.easeOut(duration: 0.3))
-                
-                }
-//        .fullScreenCover(isPresented: $show) {
-//
-////            MovieDetailView(isFullScreen: $show, movie: self.movie ?? movies.first!)
-//            Test(isFullScreen: $show, movie: movie ?? movies.first!)
-//                .transition(.opacity)
-//                }
     }
 }

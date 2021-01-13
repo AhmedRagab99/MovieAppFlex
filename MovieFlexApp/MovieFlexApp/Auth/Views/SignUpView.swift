@@ -118,6 +118,12 @@ struct SignUpView: View {
                     .disabled(!viewModel.isVallid)
                     .opacity(viewModel.isVallid ? 1 : 0.2)
                     
+                    
+                    
+                    
+                    
+                    
+                    
 //                    VStack(alignment:.center){
 //                        HStack(spacing:2){
 //                            Spacer()

@@ -459,9 +459,9 @@
 			children = (
 				D046E9CE254B6E3F00AA05DA /* NavigationViews */,
 				D00C0386253909EA007FE1DE /* ContentView.swift */,
+				D0DDA7A8254B7296004010E7 /* MoviesViews */,
 				D05C6C28254F959800651F9A /* CastViews */,
 				D0785FD8254B6D6000769804 /* Cards */,
-				D0DDA7A8254B7296004010E7 /* MoviesViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";

@@ -15,12 +15,15 @@ enum FetchMoviesData {
     case discoverMovies
 }
 class AllMoviesViewModel:ObservableObject{
-    var disposeBag = Set<AnyCancellable>()
+    var cancellables = Set<AnyCancellable>()
     @Published var discoverMovies = [Movie]()
     @Published var upComingMovies = [Movie]()
     @Published var movies = [Movie]()
+    @Published var filterdMovies = [Movie]()
+    @Published var seearchText = ""
     @Published var isLoading = CurrentValueSubject<Bool,Never>(true)
     @Published var error = ""
+    
     var isError = CurrentValueSubject<Bool,Never>(false)
     @Published var page = 1;
     //@Published var   scroll_Tabs = ["Popular","TopRated","UPComing"]
@@ -28,9 +31,17 @@ class AllMoviesViewModel:ObservableObject{
     
     
     func filterMovies(quary:String,movies:[Movie])->[Movie]{
-        return movies.filter{($0.title!.contains(quary) )}
+        print("Stared searching")
+        return movies.filter{($0.title!.contains(quary))}
     }
-    
+    init() {
+        $seearchText.sink { [weak self](value) in
+            guard let self = self else {return}
+            self.filterdMovies = self.filterMovies(quary: value, movies: self.movies)
+            print(self.filterdMovies.count)
+        }
+        .store(in: &cancellables)
+    }
     
     func getTopRatedMovies(page:Int){
         AllMovieApi.shared.getTopRatedMovies(page: page).sink { (completion) in
@@ -49,7 +60,7 @@ class AllMoviesViewModel:ObservableObject{
             self.isLoading.value = false
             self.movies = movies.results ?? [Movie]()
         }
-        .store(in: &disposeBag)
+        .store(in: &cancellables)
     }
     
     func fetchDiscoverMovies(page:Int){
@@ -72,7 +83,7 @@ class AllMoviesViewModel:ObservableObject{
            // print(self.discoverMovies.first?.title)
             
         }
-        .store(in: &disposeBag)
+        .store(in: &cancellables)
     }
     
     
@@ -93,7 +104,7 @@ class AllMoviesViewModel:ObservableObject{
             self.upComingMovies = movies.results ?? [Movie]()
 
         }
-        .store(in: &disposeBag)
+        .store(in: &cancellables)
     }
 
     

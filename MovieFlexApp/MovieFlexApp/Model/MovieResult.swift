@@ -41,7 +41,7 @@ struct Movie: Codable,Identifiable,Equatable,Hashable {
     let genreIDS:[Int]?
     let revenue:Int?
    
- 
+   
     
     
     enum CodingKeys: String, CodingKey {
