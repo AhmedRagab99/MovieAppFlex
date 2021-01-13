@@ -11,6 +11,7 @@ struct PopularView: View {
     var loading:Bool
     var width:CGFloat
     @ObservedObject var viewModel:AllMoviesViewModel
+    @EnvironmentObject var favouriteMovieEnv:FavouriteMovieEnviroment
     @State var title:String
     @State var movie:Movie?
     @State private var showDiscover = false
@@ -74,6 +75,7 @@ struct PopularView: View {
 
                             MovieDetailView(isFullScreen: $show, movie: movie ?? movies.first!)
                                 .animation(.easeOut(duration: 0.3))
+//                                .environmentObject(FavouriteMovieEnviroment())
                                 }
                     }
                     

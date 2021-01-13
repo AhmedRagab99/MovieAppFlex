@@ -12,6 +12,7 @@ import KingfisherSwiftUI
 struct SimilarMovieCardView: View {
     var item:Movie
     @State var isFullScreen = false
+
     var body: some View {
         VStack {
             KFImage(item.posterURL)
@@ -35,6 +36,7 @@ struct SimilarMovieCardView: View {
         .fullScreenCover(isPresented: $isFullScreen, content: {
             MovieDetailView(isFullScreen: $isFullScreen, movie: item)
                 .animation(.easeOut(duration: 0.3))
+//                .environmentObject(FavouriteMovieEnviroment())
         })
     }
 }

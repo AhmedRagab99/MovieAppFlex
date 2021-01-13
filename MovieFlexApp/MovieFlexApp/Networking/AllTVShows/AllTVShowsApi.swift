@@ -15,7 +15,9 @@ class AllTVShowsApi:BaseApi<AllTVNetworking>{
     static let shared = AllTVShowsApi()
     private override init(){}
     
-    
+    func getTVShowsOnAir(page:Int = 1)->Future<TVResult,ApiError>{
+        self.requst(target: .getTVShowsOnAir(page: page), responceClass: TVResult.self)
+    }
     func getPopularTVShows(page:Int = 1)->Future<TVResult,ApiError>{
         self.requst(target: .getPopularTvShows(page: page), responceClass: TVResult.self)
     }

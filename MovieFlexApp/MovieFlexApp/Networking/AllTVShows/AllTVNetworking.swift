@@ -13,7 +13,7 @@ import Alamofire
 enum AllTVNetworking{
     case getPopularTvShows(page:Int = 1)
     case getTopRatedTVShows(page:Int = 1)
-    
+    case getTVShowsOnAir(page:Int = 1)
 }
 
 
@@ -28,12 +28,14 @@ extension AllTVNetworking:TargetType{
             return "/tv/popular"
         case .getTopRatedTVShows:
             return "/tv/top_rated"
+        case .getTVShowsOnAir:
+            return "/tv/on_the_air"
         }
     }
     
     var task: Task {
         switch self{
-        case .getPopularTvShows(let page),.getTopRatedTVShows(let page):
+        case .getPopularTvShows(let page),.getTopRatedTVShows(let page),.getTVShowsOnAir(let page):
             return .requstQuareyParametares(parameters: ["api_key":(constants.TMDBAPIKEY),"page":(page)] , encoding:.queryString)
         }
     }

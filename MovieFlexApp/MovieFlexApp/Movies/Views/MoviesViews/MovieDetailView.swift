@@ -12,53 +12,66 @@ struct MovieDetailView: View {
     var movie:Movie
     @StateObject var MovieViewModel = MovieViewModle()
     @State var op:CGFloat = 1
-    
+    @EnvironmentObject var favouriteMovieEnv:FavouriteMovieEnviroment
     var body: some View {
         NavigationView{
-        VStack {
-            List{
-            
-                KFImage(movie.posterURL)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(30)
-                    .shadow(radius: 4)
-                    .padding()
-                
-                VStack(alignment: .leading){
-                    DetailHeaderView(movie: movie)
+            VStack {
+                List{
                     
-                    OverView(movie: movie)
+                    KFImage(movie.posterURL)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .cornerRadius(30)
+                        .shadow(radius: 4)
                         .padding()
                     
-                    // cast cells
-                    MovieDeatilCastView(Cast: MovieViewModel.cast)
-                        .padding()
-                    
-                    if MovieViewModel.similarMovies.count != 0{
-                        SimilarMovieView(item: movie, similarMovies: MovieViewModel.similarMovies)
+                    VStack(alignment: .leading){
+                        DetailHeaderView(movie: movie)
+                        
+                        OverView(movie: movie)
+                            .padding()
+                        
+                        // cast cells
+                        MovieDeatilCastView(Cast: MovieViewModel.cast)
+                            .padding()
+                        
+                        if MovieViewModel.similarMovies.count != 0{
+                            SimilarMovieView(item: movie, similarMovies: MovieViewModel.similarMovies)
+                        }
                     }
                 }
+                .padding()
+                
+                .onAppear {
+                    MovieViewModel.getMovieCast(movieId: movie.id ?? 0)
+                    MovieViewModel.getSimilarMovies(movieId: movie.id ?? 0)
+                }
             }
-            .padding()
-           
-            .onAppear {
-                MovieViewModel.getMovieCast(movieId: movie.id ?? 0)
-                MovieViewModel.getSimilarMovies(movieId: movie.id ?? 0)
+            .navigationBarTitle("Movie Detail")
+            .navigationBarItems(leading:   Image(systemName: "clear.fill")
+                                    .imageScale(.large)
+                                    .padding()
+                                    .foregroundColor(.purple)
+                                    .onTapGesture {
+                                        withAnimation(.spring()){
+                                            self.isFullScreen.toggle()
+                                            self.op = 0
+                                        }
+                                    }, trailing:
+        
+                                        Image(systemName:self.favouriteMovieEnv.favouriteMovies.contains(movie) == true ? "heart.fill":"heart")
+                                        .onTapGesture {
+                                            self.favouriteMovieEnv.favouriteMovies.append(movie)
+                                            print(self.favouriteMovieEnv.favouriteMovies)
+                                            print(self.favouriteMovieEnv.favouriteMovies.count)
+                                        }
+            )
+            .onAppear{
+                print(self.favouriteMovieEnv.favouriteMovies)
+                print(self.favouriteMovieEnv.favouriteMovies.count)
             }
-        }
-        .navigationBarTitle("Movie Detail")
-        .navigationBarItems(leading:   Image(systemName: "clear.fill")
-                                .imageScale(.large)
-                                .padding()
-                                .foregroundColor(.purple)
-                                .onTapGesture {
-                                    withAnimation(.spring()){
-                                        self.isFullScreen.toggle()
-                                        self.op = 0
-                                    }
-                                }, trailing:                Image(systemName: "heart"))
-            //                    .frame(width: 40, height:40, alignment: .leading))
+      
+          
         }
     }
 }

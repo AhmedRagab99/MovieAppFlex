@@ -14,6 +14,7 @@ struct GridView: View {
     var loading:Bool
     @State var showMoreUpcoming = false
     @ObservedObject var viewModel:AllMoviesViewModel
+    @EnvironmentObject var favouriteMovieEnv:FavouriteMovieEnviroment
     @State var show = false
     
     var body: some View {
@@ -64,6 +65,7 @@ struct GridView: View {
 
             MovieDetailView(isFullScreen: $show, movie: movie ?? movies.first!)
                 .animation(.easeOut(duration: 0.3))
+//                .environmentObject(FavouriteMovieEnviroment())
                 
                 }
     }
