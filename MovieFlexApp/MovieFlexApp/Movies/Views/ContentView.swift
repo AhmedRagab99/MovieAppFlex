@@ -28,9 +28,13 @@ struct ContentView: View {
                     PopularView(movies: viewModel.discoverMovies, loading: viewModel.isLoading.value,width: 130, viewModel: viewModel, title: "Discover",heigth: 275)
                             .padding()
                             
-            
+                    
                         
                     PopularView(movies: viewModel.movies, loading: viewModel.isLoading.value,width: 130, viewModel: viewModel, title: "TopRated",heigth: 275)
+                            .padding()
+                    
+                    
+                    PopularView(movies: viewModel.trendingMovies, loading: viewModel.isLoading.value,width: 130, viewModel: viewModel, title: "Trending",heigth: 275)
                             .padding()
                           
                         
@@ -45,6 +49,7 @@ struct ContentView: View {
                     viewModel.fetchUpComeingMovies(page: viewModel.page == 1 ? viewModel.page : 1)
                     viewModel.getTopRatedMovies(page: viewModel.page == 1 ? viewModel.page : 1)
                     viewModel.fetchDiscoverMovies(page: viewModel.page == 1 ? viewModel.page : 1)
+                    viewModel.getTrendingMovies(page: viewModel.page == 2 ? viewModel.page:2)
                 }
         }
         

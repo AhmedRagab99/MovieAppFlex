@@ -18,6 +18,8 @@ class AllMoviesViewModel:ObservableObject{
     var cancellables = Set<AnyCancellable>()
     @Published var discoverMovies = [Movie]()
     @Published var upComingMovies = [Movie]()
+    @Published var trendingMovies = [Movie]()
+
     @Published var movies = [Movie]()
     @Published var filterdMovies = [Movie]()
     @Published var seearchText = ""
@@ -44,6 +46,27 @@ class AllMoviesViewModel:ObservableObject{
     }
     
     func getTopRatedMovies(page:Int){
+        AllMovieApi.shared.getTrendingMovies(page: page).sink { (completion) in
+            switch completion {
+            case .failure(let error):
+                self.isLoading.value = false
+                print(error.localizedDescription)
+                self.error = error.localizedDescription
+                self.isError.value = true
+                
+            case .finished:
+                self.isLoading.value = false
+                print(" top rated finshed")
+            }
+        } receiveValue: { (movies) in
+            self.isLoading.value = false
+            self.trendingMovies = movies.results ?? [Movie]()
+        }
+        .store(in: &cancellables)
+    }
+    
+    
+    func getTrendingMovies(page:Int){
         AllMovieApi.shared.getTopRatedMovies(page: page).sink { (completion) in
             switch completion {
             case .failure(let error):

@@ -23,6 +23,10 @@ class AllMovieApi:BaseApi<AllMovieNetworking>{
         self.requst(target: .discover(page: page), responceClass: MovieResult.self)
     }
     
+    func getTrendingMovies(page:Int = 1)->Future<MovieResult,ApiError>{
+        self.requst(target: .getTrendingMovies(page: page), responceClass: MovieResult.self)
+    }
+    
     func getUpcomingMovies( page:Int=1)->Future<MovieResult,ApiError>{
         self.requst(target: .getUpcomingMovies(page: page), responceClass: MovieResult.self)
     }
