@@ -14,7 +14,7 @@ import Firebase
 
 final class UserViewModel:ObservableObject{
     
-    private let userService:UserServicesProtocol
+    private let userService:AuthServiceProtocol
     
     
     private var cancellables = Set<AnyCancellable>()
@@ -24,12 +24,12 @@ final class UserViewModel:ObservableObject{
     @Published var emailText:String = ""
     @Published var nameText:String = ""
     @Published var passwordText:String = ""
-    @Published var imageLinkUrl:String = ""
+
     @Published var errorText:String = ""
     @Published var showAlert = false
     
     private let mode:Mode
-    init(userService:UserServicesProtocol = UserService(),mode:Mode) {
+    init(userService:AuthServiceProtocol = AuthService(),mode:Mode) {
         self.userService = userService
         self.mode = mode
         Publishers.CombineLatest3($emailText,$passwordText,$nameText)
@@ -112,7 +112,7 @@ final class UserViewModel:ObservableObject{
                     self.isLoading.value = false
                     print(authData.user.email ?? "")
                     
-                    let userData = UserData(userId:Auth.auth().currentUser?.uid , userName: self.nameText, userEmail: self.emailText, userImageUrl: self.imageLinkUrl,createdAt: Date())
+                    let userData = UserData(userId:Auth.auth().currentUser?.uid , userName: self.nameText, userEmail: self.emailText, userImageUrl:"",createdAt: Date())
                     self.createUser(userData: userData).sink{ (result) in
                         switch result {
                         case .finished:

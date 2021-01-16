@@ -45,9 +45,9 @@ final class AppState:ObservableObject{
     @Published private(set) var isLoggedIn = false
     private var cancel = Set<AnyCancellable>()
     
-    private let userService:UserServicesProtocol
+    private let userService:AuthServiceProtocol
     
-    init(userService:UserServicesProtocol = UserService()) {
+    init(userService:AuthServiceProtocol = AuthService()) {
         self.userService = userService
         
         userService

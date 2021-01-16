@@ -18,12 +18,12 @@ final class ImagePickerViewModel: ObservableObject {
     @Published var downloadedUrl:String = ""
     private(set) var sourceType: ImagePicker.SourceType = .photoLibrary
     private var storageServices:StorageServicesProtocol
-    private var userService:UserServicesProtocol
+    private var userService:AuthServiceProtocol
     private var cancellabels = Set<AnyCancellable>()
     
     
     
-    init(storageServices:StorageServicesProtocol = StorageServices(),userService:UserServicesProtocol = UserService()) {
+    init(storageServices:StorageServicesProtocol = StorageServices(),userService:AuthServiceProtocol = AuthService()) {
         self.storageServices = storageServices
         self.userService = userService
     }
@@ -59,9 +59,27 @@ final class ImagePickerViewModel: ObservableObject {
                     }
                 } receiveValue: { (value) in
                     self.downloadedUrl = value.description
+                    let updatedData = ["userImageUrl":self.downloadedUrl]
+                    self.userService.updateUserData(["userImageUrl":self.downloadedUrl],documentpath: Auth.auth().currentUser?.uid ?? "")
+                        .sink { (res) in
+                            switch res{
+                            case let  .failure(error):
+                                print(error.localizedDescription)
+                            case .finished:
+                                print("finisd")
+                            }
+                        } receiveValue: { (_) in
+                            print("Updated")
+                       
+                            self.isPresentingImagePicker = false
+                        }
+                        .store(in: &self.cancellabels)
+
+                        
+                        
                     print(self.downloadedUrl)
                     
-                    self.isPresentingImagePicker = false
+           
 
                 }
                 .store(in: &self.cancellabels)
@@ -73,9 +91,9 @@ final class ImagePickerViewModel: ObservableObject {
     }
     
     private func uploadImage(path:String)->AnyPublisher<String,Error>{
-        return self.storageServices.putData((selectedImage?.jpegData(compressionQuality: 0.5)!)!, refPath: "/users/image_\(path)")
+        return self.storageServices.putData((selectedImage?.jpegData(compressionQuality: 0.5)!)!, refPath: "/users/image/\(path)")
     }
     private func downloadUrl(path:String) -> AnyPublisher<URL,Error>{
-        return self.storageServices.downloadUrl(refPath: "/users/image_\(path)")
+        return self.storageServices.downloadUrl(refPath: "/users/image/\(path)")
     }
 }

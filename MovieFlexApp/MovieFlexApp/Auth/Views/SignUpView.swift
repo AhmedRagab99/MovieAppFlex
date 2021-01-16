@@ -28,6 +28,13 @@ struct SignUpView: View {
                     if viewModel.isLoading.value{
                         ProgressView()
                     }
+                    
+                    
+                    
+                    Image("signup")
+                        .resizable()
+                        .frame(width: reader.size.width * 0.7, height: reader.size.height * 0.4)
+                    
             
                     HStack(spacing:15){
                         

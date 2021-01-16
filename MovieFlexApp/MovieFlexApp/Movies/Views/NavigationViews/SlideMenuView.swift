@@ -1,5 +1,6 @@
 import SwiftUI
 import FirebaseAuth
+import KingfisherSwiftUI
 struct SlideMenuView: View {
     var body: some View {
         Home()
@@ -31,7 +32,8 @@ struct Home : View {
                     
                     // images gallery
                     VStack {
-                        Image(uiImage:((imageViewModel.selectedImage != nil ? imageViewModel.selectedImage: UIImage(systemName:"heart.fill"))!) )
+//                        Image(uiImage:((imageViewModel.selectedImage != nil ? imageViewModel.selectedImage: UIImage(systemName:"heart.fill"))!) )
+                        KFImage(URL(string:imageViewModel.downloadedUrl) ?? URL(string: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500")!)
                             .resizable()
                             .frame(width:120,height: 120)
                             .clipShape(Circle())

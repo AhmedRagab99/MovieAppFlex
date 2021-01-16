@@ -28,8 +28,9 @@ enum MovieAppFlexError:LocalizedError{
 }
 
 
-protocol UserServicesProtocol{
+protocol AuthServiceProtocol{
     func currentUser()->AnyPublisher<User?,Never>
+    func updateUserData(_ updatedata:[AnyHashable: Any],documentpath:String)->AnyPublisher<Void,Error>
     func signInAnonymasley()->AnyPublisher<User,MovieAppFlexError>
     func observeAuthStateChanges()->AnyPublisher<User?,Never>
     func createUser(_ user:UserData)->AnyPublisher<Void,Error>
@@ -40,19 +41,33 @@ protocol UserServicesProtocol{
 }
 
 
-final class UserService:UserServicesProtocol{
+final class AuthService:AuthServiceProtocol{
+   
     
-    
+   
     
     private let db = Firestore.firestore()
     private let userPath = "User"
+    
+    func updateUserData(_ updatedata: [AnyHashable: Any],documentpath:String) -> AnyPublisher<Void, Error> {
+       return  Future<Void, Error> { promise in
+            self.db.collection(self.userPath).document(documentpath).updateData(updatedata) { error in
+                 guard let error = error else {
+                     promise(.success(()))
+                     return
+                 }
+                 promise(.failure(error))
+             }
+         }.eraseToAnyPublisher()
+     }
+   
     
     
     func createUser(_ user: UserData) -> AnyPublisher<Void, Error> {
         return Future<Void,Error>{ promise in
             do {
-                let test = try self.db.collection(self.userPath).addDocument(from: user)
-                print(test)
+                _ = try self.db.collection(self.userPath).document(Auth.auth().currentUser?.uid ?? "").setData(from: user)
+           
                 promise(.success(()))
             } catch (let error){
                 promise(.failure(error.localizedDescription as! Error))
