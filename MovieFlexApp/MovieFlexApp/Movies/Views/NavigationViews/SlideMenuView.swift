@@ -15,6 +15,7 @@ struct TestMenuView_preview: PreviewProvider {
 
 struct Home : View {
     @State var viewModel = UserViewModel(mode: .signOut)
+    @StateObject var imageViewModel = ImagePickerViewModel()
     @State var index = 0
     @State var show = false
     
@@ -28,11 +29,37 @@ struct Home : View {
                 
                 VStack(alignment: .leading, spacing: 12) {
                     
-                    Image("test")
-                        .resizable()
-                        .frame(width:120,height: 120)
-                        .clipShape(Circle())
-                        .shadow(radius: 5 )
+                    // images gallery
+                    VStack {
+                        Image(uiImage:((imageViewModel.selectedImage != nil ? imageViewModel.selectedImage: UIImage(systemName:"heart.fill"))!) )
+                            .resizable()
+                            .frame(width:120,height: 120)
+                            .clipShape(Circle())
+                            .shadow(radius: 5 )
+                            .onTapGesture {
+                                imageViewModel.choosePhoto()
+                            }
+                            
+                        HStack{
+                        Button(action:{
+                            self.imageViewModel.takePhoto()
+                        }){
+                            Text("with camera")
+                        }
+                        
+                        Button(action:{
+                            self.imageViewModel.choosePhoto()
+                        }){
+                            Text("with gallery")
+                        }
+                        }
+                        .padding()
+//                    controlBar()
+                        }
+                        .fullScreenCover(isPresented: $imageViewModel.isPresentingImagePicker, content: {
+                            ImagePicker(sourceType: imageViewModel.sourceType, completionHandler: imageViewModel.didSelectImage)
+                        })
+                    
                         
                     
                     Text("Hey")
@@ -239,6 +266,7 @@ struct Home : View {
                                     .padding(.vertical)
                                     .navigationTitle("Movies")
                                     .navigationBarTitleDisplayMode(.large)
+                                  
                             }
                             
                             

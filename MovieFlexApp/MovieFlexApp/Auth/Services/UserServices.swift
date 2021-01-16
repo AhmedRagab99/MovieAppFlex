@@ -6,7 +6,8 @@
 //
 import Combine
 import FirebaseAuth
-
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 
 
@@ -31,45 +32,64 @@ protocol UserServicesProtocol{
     func currentUser()->AnyPublisher<User?,Never>
     func signInAnonymasley()->AnyPublisher<User,MovieAppFlexError>
     func observeAuthStateChanges()->AnyPublisher<User?,Never>
+    func createUser(_ user:UserData)->AnyPublisher<Void,Error>
     func linkAccountWithAnonmasyleyUser(email:String,password:String,name:String)->AnyPublisher<User?,MovieAppFlexError>
     func createUser(withEmail email: String, password: String) -> AnyPublisher<AuthDataResult, EmailAuthError>
     func signInWithEmail(withEmail email: String, password: String) -> AnyPublisher<AuthDataResult, Error>
-   
+    
 }
 
 
 final class UserService:UserServicesProtocol{
     
     
-     func signInWithEmail(withEmail email: String, password: String) -> AnyPublisher<AuthDataResult, Error> {
-         Future<AuthDataResult, Error> {  promise in
+    
+    private let db = Firestore.firestore()
+    private let userPath = "User"
+    
+    
+    func createUser(_ user: UserData) -> AnyPublisher<Void, Error> {
+        return Future<Void,Error>{ promise in
+            do {
+                let test = try self.db.collection(self.userPath).addDocument(from: user)
+                print(test)
+                promise(.success(()))
+            } catch (let error){
+                promise(.failure(error.localizedDescription as! Error))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func signInWithEmail(withEmail email: String, password: String) -> AnyPublisher<AuthDataResult, Error> {
+        Future<AuthDataResult, Error> {  promise in
             Auth.auth().signIn(withEmail: email, password: password){ auth, error in
                 
                 var newError:NSError
-                          if let err = error {
-                              newError = err as NSError
-                              var authError:EmailAuthError?
-                              switch newError.code {
-                              case 17009:
-                                  authError = .incorrectPassword
-                              case 17008:
-                                  authError = .invalidEmail
-                              case 17011:
-                                  authError = .accoundDoesNotExist
-                              default:
-                                  authError = .unknownError
-                              }
-                              promise(.failure(authError!))
-                          }
+                if let err = error {
+                    newError = err as NSError
+                    var authError:EmailAuthError?
+                    switch newError.code {
+                    case 17009:
+                        authError = .incorrectPassword
+                    case 17008:
+                        authError = .invalidEmail
+                    case 17011:
+                        authError = .accoundDoesNotExist
+                    default:
+                        authError = .unknownError
+                    }
+                    promise(.failure(authError!))
+                }
                 else if let auth = auth {
-                     promise(.success(auth))
-                 }
-             }
-         }.eraseToAnyPublisher()
-     }
+                    promise(.success(auth))
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
     
     
-     func createUser(withEmail email: String, password: String) -> AnyPublisher<AuthDataResult, EmailAuthError> {
+    func createUser(withEmail email: String, password: String) -> AnyPublisher<AuthDataResult, EmailAuthError> {
         Future<AuthDataResult, EmailAuthError> { promise in
             Auth.auth().createUser(withEmail: email, password: password){ auth, error in
                 
@@ -80,7 +100,7 @@ final class UserService:UserServicesProtocol{
                     switch newError.code {
                     case 17008:
                         authError = .invalidEmail
-
+                        
                     default:
                         authError = .unknownError
                     }

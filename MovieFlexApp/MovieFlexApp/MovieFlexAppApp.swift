@@ -18,8 +18,10 @@ struct MovieFlexAppApp: App {
         WindowGroup {
             if appAuthState.isLoggedIn{
                 SlideMenuView()
+                    .environmentObject(FavouriteMovieEnviroment())
             } else {
                 SignInView()
+                    
 
             }
         }

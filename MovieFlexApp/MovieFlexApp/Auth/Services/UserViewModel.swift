@@ -7,6 +7,7 @@
 
 import Combine
 import FirebaseAuth
+import Firebase
 
 
 
@@ -14,13 +15,16 @@ import FirebaseAuth
 final class UserViewModel:ObservableObject{
     
     private let userService:UserServicesProtocol
-    private var disposeBag = Set<AnyCancellable>()
+    
+    
+    private var cancellables = Set<AnyCancellable>()
     var isLoading = CurrentValueSubject<Bool,Never>(false)
     @Published var isVallidLogIn:Bool = false
     @Published var isVallid:Bool = false
     @Published var emailText:String = ""
     @Published var nameText:String = ""
     @Published var passwordText:String = ""
+    @Published var imageLinkUrl:String = ""
     @Published var errorText:String = ""
     @Published var showAlert = false
     
@@ -68,7 +72,7 @@ final class UserViewModel:ObservableObject{
                     self.isLoading.value = false
                     print(auth?.email)
                 }
-                .store(in: &disposeBag)
+                .store(in: &cancellables)
 
         
         case .signIn:
@@ -89,7 +93,7 @@ final class UserViewModel:ObservableObject{
                     self.isLoading.value = false
                     print(authData.user.email)
                 }
-                .store(in: &disposeBag)
+                .store(in: &cancellables)
 
         
         case .signUp:
@@ -107,13 +111,36 @@ final class UserViewModel:ObservableObject{
                 } receiveValue: { (authData) in
                     self.isLoading.value = false
                     print(authData.user.email ?? "")
+                    
+                    let userData = UserData(userId:Auth.auth().currentUser?.uid , userName: self.nameText, userEmail: self.emailText, userImageUrl: self.imageLinkUrl,createdAt: Date())
+                    self.createUser(userData: userData).sink{ (result) in
+                        switch result {
+                        case .finished:
+                            print("finished")
+                        case .failure(let error):
+                            self.showAlert = true
+                            self.errorText = error.localizedDescription
+                        }
+                    } receiveValue: { (_) in
+                        print("user inserted successfully")
+                    }
+                    .store(in: &self.cancellables)
                 }
-                .store(in:&disposeBag)
+                .store(in:&cancellables)
+          
+
+                
             
             
         default:
             print("asdasd")
         }
+    }
+    
+    
+    private func createUser(userData:UserData)->AnyPublisher<Void, Error>{
+        
+        return userService.createUser(userData).eraseToAnyPublisher()
     }
     
     

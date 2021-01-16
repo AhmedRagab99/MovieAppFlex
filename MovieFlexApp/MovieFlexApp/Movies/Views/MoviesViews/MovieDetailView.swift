@@ -37,6 +37,11 @@ struct MovieDetailView: View {
                         
                         if MovieViewModel.similarMovies.count != 0{
                             SimilarMovieView(item: movie, similarMovies: MovieViewModel.similarMovies)
+                                .onTapGesture {
+                                    withAnimation{
+                                    self.isFullScreen.toggle()
+                                    }
+                                }
                         }
                     }
                 }
@@ -61,6 +66,8 @@ struct MovieDetailView: View {
         
                                         Image(systemName:self.favouriteMovieEnv.favouriteMovies.contains(movie) == true ? "heart.fill":"heart")
                                         .onTapGesture {
+                                            
+                                            
                                             self.favouriteMovieEnv.favouriteMovies.append(movie)
                                             print(self.favouriteMovieEnv.favouriteMovies)
                                             print(self.favouriteMovieEnv.favouriteMovies.count)
@@ -71,6 +78,11 @@ struct MovieDetailView: View {
                 print(self.favouriteMovieEnv.favouriteMovies.count)
             }
       
+            .fullScreenCover(isPresented: $isFullScreen, content: {
+                MovieDetailView(isFullScreen: $isFullScreen, movie: movie)
+                    .animation(.easeOut(duration: 0.3))
+    //                .environmentObject(FavouriteMovieEnviroment())
+            })
           
         }
     }
@@ -84,7 +96,7 @@ struct OverView: View {
         VStack {
             Text(movie.overview ?? "")
                 .frame(maxWidth:.infinity,maxHeight: 280)
-                .font(.title)
+                .font(.subheadline)
                 .multilineTextAlignment(.leading)
                 .foregroundColor(Color.primary.opacity(0.7))
         }

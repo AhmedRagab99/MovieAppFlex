@@ -19,9 +19,7 @@ struct SimilarMovieCardView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .onTapGesture{
-                    withAnimation{
-                    self.isFullScreen.toggle()
-                    }
+              
                   
                 }
                 
@@ -33,10 +31,6 @@ struct SimilarMovieCardView: View {
                 
             }
         }
-        .fullScreenCover(isPresented: $isFullScreen, content: {
-            MovieDetailView(isFullScreen: $isFullScreen, movie: item)
-                .animation(.easeOut(duration: 0.3))
-//                .environmentObject(FavouriteMovieEnviroment())
-        })
+      
     }
 }

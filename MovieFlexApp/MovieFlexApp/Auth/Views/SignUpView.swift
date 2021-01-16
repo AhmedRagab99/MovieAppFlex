@@ -11,6 +11,7 @@ import FirebaseAuth
 
 struct SignUpView: View {
     @StateObject var viewModel = UserViewModel(mode: .signUp)
+    @StateObject var imageViewModel = ImagePickerViewModel()
     @State var cancel = Set<AnyCancellable>()
     @State var color = Color.blue.opacity(0.7)
     @State var visible = false
@@ -20,21 +21,14 @@ struct SignUpView: View {
         
             
             GeometryReader{ reader in
-          
-     
+
                 ScrollView{
                 VStack(alignment:.center,spacing:12) {
                     
                     if viewModel.isLoading.value{
                         ProgressView()
                     }
-                    
-                    Image("signup")
-                        .resizable()
-                        .frame(width: reader.size.width * 0.7, height: reader.size.height * 0.4)
-                    
-                    
-                    
+            
                     HStack(spacing:15){
                         
                         VStack(){
@@ -141,6 +135,12 @@ struct SignUpView: View {
 //                            Spacer()
 //                        }
 //                    }
+                    
+                    
+                
+                    
+                    
+                    
                     Spacer()
                     
                     
