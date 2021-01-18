@@ -44,13 +44,17 @@ struct MovieDetailView: View {
                                 }
                         }
                     }
+                    
                 }
                 .padding()
                 
-                .onAppear {
-                    MovieViewModel.getMovieCast(movieId: movie.id ?? 0)
-                    MovieViewModel.getSimilarMovies(movieId: movie.id ?? 0)
-                }
+              
+            }
+            
+
+            .onAppear {
+                MovieViewModel.getMovieCast(movieId: movie.id ?? 0)
+                MovieViewModel.getSimilarMovies(movieId: movie.id ?? 0)
             }
             .navigationBarTitle("Movie Detail")
             .navigationBarItems(leading:   Image(systemName: "clear.fill")
@@ -78,11 +82,6 @@ struct MovieDetailView: View {
                 print(self.favouriteMovieEnv.favouriteMovies.count)
             }
       
-            .fullScreenCover(isPresented: $isFullScreen, content: {
-                MovieDetailView(isFullScreen: $isFullScreen, movie: movie)
-                    .animation(.easeOut(duration: 0.3))
-    //                .environmentObject(FavouriteMovieEnviroment())
-            })
           
         }
     }
