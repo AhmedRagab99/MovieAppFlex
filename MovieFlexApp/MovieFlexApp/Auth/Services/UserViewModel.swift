@@ -16,7 +16,6 @@ final class UserViewModel:ObservableObject{
     
     private let userService:AuthServiceProtocol
     
-    
     private var cancellables = Set<AnyCancellable>()
     var isLoading = CurrentValueSubject<Bool,Never>(false)
     @Published var isVallidLogIn:Bool = false
@@ -24,11 +23,11 @@ final class UserViewModel:ObservableObject{
     @Published var emailText:String = ""
     @Published var nameText:String = ""
     @Published var passwordText:String = ""
-
     @Published var errorText:String = ""
     @Published var showAlert = false
     
     private let mode:Mode
+    
     init(userService:AuthServiceProtocol = AuthService(),mode:Mode) {
         self.userService = userService
         self.mode = mode
@@ -128,9 +127,6 @@ final class UserViewModel:ObservableObject{
                 }
                 .store(in:&cancellables)
           
-
-                
-            
             
         default:
             print("asdasd")

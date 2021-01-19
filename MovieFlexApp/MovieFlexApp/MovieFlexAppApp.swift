@@ -7,18 +7,23 @@
 
 import SwiftUI
 import Firebase
-
+import Combine
 @main
 struct MovieFlexAppApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private  var appAuthState = AppState()
+    @StateObject private var userChatViewModel = UserChatViewModel()
+    
     @State var isLogIn = false
     var body: some Scene {
         WindowGroup {
             if appAuthState.isLoggedIn{
-                SlideMenuView()
+                SlideMenuView(userChatViewModel: userChatViewModel)
                     .environmentObject(FavouriteMovieEnviroment())
+                    .environmentObject(UserDocumentEnviroment())
+                    
+                    
             } else {
                 SignInView()
                     
@@ -40,7 +45,10 @@ class AppDelegate:NSObject,UIApplicationDelegate{
     }
 }
 
-import Combine
+
+
+
+
 final class AppState:ObservableObject{
     @Published private(set) var isLoggedIn = false
     private var cancel = Set<AnyCancellable>()

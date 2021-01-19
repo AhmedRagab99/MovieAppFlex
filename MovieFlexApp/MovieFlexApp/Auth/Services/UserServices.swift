@@ -13,19 +13,7 @@ import FirebaseFirestoreSwift
 
 typealias UserId = String
 
-enum MovieAppFlexError:LocalizedError{
-    case auth(description:String)
-    case `defult`(description:String? = nil )
-    var errorDescription: String?{
-        switch self{
-        case let .auth(description):
-            return description
-        case let  .defult(description):
-            return description ?? "Some Thing went Wrong"
-        }
-    }
-    
-}
+
 
 
 protocol AuthServiceProtocol{

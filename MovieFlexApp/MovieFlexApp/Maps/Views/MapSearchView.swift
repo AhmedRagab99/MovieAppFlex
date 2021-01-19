@@ -71,12 +71,12 @@ struct MapSearchView: View {
 }
 
 
-
-struct MapSearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        SlideMenuView()
-    }
-}
+//
+//struct MapSearchView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SlideMenuView()
+//    }
+//}
 
 
 

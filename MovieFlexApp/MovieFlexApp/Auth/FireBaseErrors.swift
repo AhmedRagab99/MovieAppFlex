@@ -16,6 +16,21 @@ enum FireStoreError: Error {
     case noUser
 }
 
+
+enum MovieAppFlexError:LocalizedError{
+    case auth(description:String)
+    case `defult`(description:String? = nil )
+    var errorDescription: String?{
+        switch self{
+        case let .auth(description):
+            return description
+        case let  .defult(description):
+            return description ?? "Some Thing went Wrong"
+        }
+    }
+    
+}
+
 extension FireStoreError: LocalizedError {
     // This will provide me with a specific localized description for the FireStoreError
     var errorDescription: String? {
@@ -30,6 +45,7 @@ extension FireStoreError: LocalizedError {
             return NSLocalizedString("No Snapshot Data", comment: "")
         case .noUser:
             return NSLocalizedString("No User", comment: "")
+        
         }
     }
 }

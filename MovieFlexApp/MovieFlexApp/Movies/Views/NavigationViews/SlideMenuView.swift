@@ -2,21 +2,26 @@ import SwiftUI
 import FirebaseAuth
 import KingfisherSwiftUI
 struct SlideMenuView: View {
+    @ObservedObject  var userChatViewModel:UserChatViewModel
     var body: some View {
-        Home()
+        Home(userChatViewModel: userChatViewModel)
     }
 }
-
-struct TestMenuView_preview: PreviewProvider {
-    static var previews: some View {
-        SlideMenuView()
-        
-    }
-}
+//
+//struct TestMenuView_preview: PreviewProvider {
+//    static var previews: some View {
+//        SlideMenuView()
+//
+//    }
+//}
 
 struct Home : View {
     @State var viewModel = UserViewModel(mode: .signOut)
     @StateObject var imageViewModel = ImagePickerViewModel()
+    @EnvironmentObject var env:UserDocumentEnviroment
+    @ObservedObject  var userChatViewModel:UserChatViewModel
+
+    
     @State var index = 0
     @State var show = false
     
@@ -33,7 +38,7 @@ struct Home : View {
                     // images gallery
                     VStack {
 //                        Image(uiImage:((imageViewModel.selectedImage != nil ? imageViewModel.selectedImage: UIImage(systemName:"heart.fill"))!) )
-                        KFImage(URL(string:imageViewModel.downloadedUrl) ?? URL(string: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500")!)
+                        KFImage(URL(string:env.userDocumentData.first?.userImageUrl ?? "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500") ?? URL(string: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500")!)
                             .resizable()
                             .frame(width:120,height: 120)
                             .clipShape(Circle())
@@ -299,6 +304,7 @@ struct Home : View {
         }
         .background(Color(UIColor.systemBackground)).edgesIgnoringSafeArea(.all)
         .edgesIgnoringSafeArea(.all)
+        .onAppear{env.userDocumentData = userChatViewModel.userData}
         
     }
 }
