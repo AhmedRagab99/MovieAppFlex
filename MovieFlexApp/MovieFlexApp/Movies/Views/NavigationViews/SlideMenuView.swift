@@ -20,6 +20,7 @@ struct Home : View {
     @StateObject var imageViewModel = ImagePickerViewModel()
     @EnvironmentObject var env:UserDocumentEnviroment
     @ObservedObject  var userChatViewModel:UserChatViewModel
+    @StateObject var chatViewModel = ChatViewModel()
 
     
     @State var index = 0

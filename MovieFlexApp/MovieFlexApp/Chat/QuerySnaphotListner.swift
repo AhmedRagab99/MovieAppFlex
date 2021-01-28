@@ -26,20 +26,7 @@ extension Publishers{
     }
     
     
-//    public func getDocuments(source: FirestoreSource = .default) -> AnyPublisher<QuerySnapshot, Error> {
-//            Future<QuerySnapshot, Error> { promise in
-//                 getDocuments(source: source, completion: { (snapshot, error) in
-//                    if let error = error {
-//                        promise(.failure(error))
-//                    } else if let snapshot = snapshot {
-//                        promise(.success(snapshot))
-//                    } else {
-//                        promise(.failure(FirestoreError.nilResultError))
-//                    }
-//                })
-//            }.eraseToAnyPublisher()
-//        }
-        
+
       
     
     class QuerySnapshotSubscription<S:Subscriber>: Subscription where S.Input == QuerySnapshot, S.Failure == MovieAppFlexError{

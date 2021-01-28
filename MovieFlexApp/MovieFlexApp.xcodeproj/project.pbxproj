@@ -14,6 +14,10 @@
 		D00C039625390ACD007FE1DE /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D00C039525390ACD007FE1DE /* Kingfisher */; };
 		D00C039825390ACD007FE1DE /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D00C039725390ACD007FE1DE /* KingfisherSwiftUI */; };
 		D00C039C25390AFF007FE1DE /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = D00C039B25390AFF007FE1DE /* Alamofire */; };
+		D024FF5E25C31F34005C9921 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D024FF5D25C31F34005C9921 /* ChatModel.swift */; };
+		D024FF6125C320F9005C9921 /* chatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D024FF6025C320F9005C9921 /* chatService.swift */; };
+		D024FF6425C32900005C9921 /* DocumentSnapshotListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = D024FF6325C32900005C9921 /* DocumentSnapshotListener.swift */; };
+		D024FF6725C33805005C9921 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D024FF6625C33805005C9921 /* ChatViewModel.swift */; };
 		D03D2F6C254F886500EE90DF /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D2F6B254F886500EE90DF /* MovieViewModel.swift */; };
 		D046E9CB254B6DF900AA05DA /* GridCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D046E9CA254B6DF900AA05DA /* GridCardView.swift */; };
 		D05C6C23254F954300651F9A /* CastCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05C6C22254F954300651F9A /* CastCardView.swift */; };
@@ -101,6 +105,10 @@
 		D00C0388253909EB007FE1DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D00C038B253909EB007FE1DE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D00C038D253909EB007FE1DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D024FF5D25C31F34005C9921 /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
+		D024FF6025C320F9005C9921 /* chatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatService.swift; sourceTree = "<group>"; };
+		D024FF6325C32900005C9921 /* DocumentSnapshotListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSnapshotListener.swift; sourceTree = "<group>"; };
+		D024FF6625C33805005C9921 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		D03D2F6B254F886500EE90DF /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
 		D046E9CA254B6DF900AA05DA /* GridCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCardView.swift; sourceTree = "<group>"; };
 		D05C6C22254F954300651F9A /* CastCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCardView.swift; sourceTree = "<group>"; };
@@ -250,6 +258,13 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		D024FF6925C34123005C9921 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		D046E9CE254B6E3F00AA05DA /* NavigationViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -285,12 +300,17 @@
 		D084E18D25B2330200E2445E /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				D024FF6925C34123005C9921 /* ViewModel */,
 				D084E18E25B2333A00E2445E /* User.swift */,
 				D084E19125B236FE00E2445E /* UserChatService.swift */,
 				D0E8AF2A25B2636C00FC128B /* StorageService.swift */,
 				D0945DB525B635E10055C49D /* QuerySnaphotListner.swift */,
 				D0945DB825B64BAA0055C49D /* UserDocumentsViewModel.swift */,
 				D0945DBB25B64F480055C49D /* UserDocumentEnviroment.swift */,
+				D024FF5D25C31F34005C9921 /* ChatModel.swift */,
+				D024FF6025C320F9005C9921 /* chatService.swift */,
+				D024FF6325C32900005C9921 /* DocumentSnapshotListener.swift */,
+				D024FF6625C33805005C9921 /* ChatViewModel.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -684,6 +704,7 @@
 				D05C6C26254F957B00651F9A /* SimilarMovieView.swift in Sources */,
 				D09C4C0B25A0CED1000AD8D4 /* SelectDestinationLocationView.swift in Sources */,
 				D0D74F2B2540F285008296AA /* CastModel.swift in Sources */,
+				D024FF6425C32900005C9921 /* DocumentSnapshotListener.swift in Sources */,
 				D065A2A62557563200F5C9B8 /* ActorWorkView.swift in Sources */,
 				D0D9D2422547D233001B476B /* Foundation+Extension.swift in Sources */,
 				D0FF71FD253D02AC00EFE17A /* BaseApi.swift in Sources */,
@@ -695,6 +716,7 @@
 				D00C0387253909EA007FE1DE /* ContentView.swift in Sources */,
 				D0945DB925B64BAA0055C49D /* UserDocumentsViewModel.swift in Sources */,
 				D084E19225B236FE00E2445E /* UserChatService.swift in Sources */,
+				D024FF5E25C31F34005C9921 /* ChatModel.swift in Sources */,
 				D06BBBEC256C694600CB7140 /* ProgressCircleView.swift in Sources */,
 				D0FF720A253D0A7100EFE17A /* MovieResult.swift in Sources */,
 				D06EFF8225A3CB0700AA454D /* DirectionDetailView.swift in Sources */,
@@ -727,12 +749,14 @@
 				D06EFF7625A3C88C00AA454D /* ShowMoreCellView.swift in Sources */,
 				D09F359625A7D02F009D8C35 /* FireBaseErrors.swift in Sources */,
 				D0E8AF2B25B2636C00FC128B /* StorageService.swift in Sources */,
+				D024FF6725C33805005C9921 /* ChatViewModel.swift in Sources */,
 				D03D2F6C254F886500EE90DF /* MovieViewModel.swift in Sources */,
 				D0E8971B2544C93C00B0DDD3 /* AllMoviesViewModel.swift in Sources */,
 				D08AA4CE2547770300BEE514 /* GridView.swift in Sources */,
 				D06EFF8525A3CB6500AA454D /* SourceSearchView.swift in Sources */,
 				D0B04710256C4C440082604C /* Constants.swift in Sources */,
 				D0E897132544B2F900B0DDD3 /* TVNetworking.swift in Sources */,
+				D024FF6125C320F9005C9921 /* chatService.swift in Sources */,
 				D05C6C23254F954300651F9A /* CastCardView.swift in Sources */,
 				D0D9D23F2547CA23001B476B /* ShowMoreMoviesView.swift in Sources */,
 				D065A2A92557565800F5C9B8 /* PickerView.swift in Sources */,
