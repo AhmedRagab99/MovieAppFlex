@@ -54,6 +54,7 @@ class ChatViewModel:ObservableObject{
             }
         } receiveValue: { (data) in
             self.userChats = data
+            print(self.userChats)
         }
         .store(in: &cancellables)
         

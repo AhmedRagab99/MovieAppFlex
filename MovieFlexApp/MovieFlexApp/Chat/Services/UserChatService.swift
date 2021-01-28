@@ -24,7 +24,7 @@ final class UserChatService:UserChatServicesProtocol{
     private let chatPath =  "Chat"
     
     func observeChatDocuments(userId: String) -> AnyPublisher<[ChatModel], MovieAppFlexError> {
-        let query = db.collection(chatPath).whereField("senderId", isEqualTo: userId).order(by: "timeStamp",descending: false)
+        let query = db.collection(chatPath).order(by: "timeStamp",descending: false).whereField("senderId", isEqualTo: userId)
         return Publishers.QuerySnapshotPublisher(query: query)
             .flatMap{ snapshot -> AnyPublisher<[ChatModel],MovieAppFlexError> in
                 do{
